@@ -27,7 +27,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := apihubsdk.NewClientWithResponses("https://gateway.getpihub.cloud", apihubsdk.WithRequestEditorFn(xApiKeyAuth.Intercept))
+	client, err := apihubsdk.NewClientWithResponses("https://gateway.getapihub.cloud", apihubsdk.WithRequestEditorFn(xApiKeyAuth.Intercept))
 	if err != nil {
 		panic(err)
 	}
