@@ -1,0 +1,2021 @@
+openapi: 3.0.1
+info:
+  title: GetAPIHub API
+  description: API Example for GetAPIHub
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+  - url: https://gateway.getapihub.cloud/api
+paths:
+  /company:
+    get:
+      tags:
+        - company_deprecated
+      description: GetCompanyUrl - Returns details about the company
+      parameters:
+        - name: li_company_url
+          in: query
+          description: LinkedIn company page URL
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.CompanyDetails"
+      security:
+        - ApiKeyAuth: []
+  /jobs/details:
+    get:
+      tags:
+        - jobs_deprecated
+      description: GetJobDetails - Returns all the jobs details found on LinkedIn
+      parameters:
+        - name: job_id
+          in: query
+          description: If of the Job from LinkedIn received in the search results
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.JobDetailsData"
+      security:
+        - ApiKeyAuth: []
+  /jobs/search:
+    get:
+      tags:
+        - jobs_deprecated
+      description: SearchJobs - Returns a list of jobs from search
+      parameters:
+        - name: company_ids
+          in: query
+          description: List of IDs of the companies
+          schema:
+            type: string
+        - name: salary
+          in: query
+          description: List of IDs of the companies
+          schema:
+            type: string
+            enum:
+              - 40k+
+              - 60k+
+              - 80k+
+              - 100k+
+              - 120k+
+              - 140k+
+              - 160k+
+              - 180k+
+              - 200k+
+        - name: job_type
+          in: query
+          description: Type of the job
+          schema:
+            type: string
+            enum:
+              - fullTime
+              - partTime
+              - contract
+              - internship
+        - name: sort
+          in: query
+          description: Sort the results by
+          schema:
+            type: string
+            enum:
+              - mostRelevant
+              - mostRecent
+        - name: keywords
+          in: query
+          description: Keywords to search for
+          schema:
+            type: string
+        - name: date_posted
+          in: query
+          description: Date posted
+          schema:
+            type: string
+            enum:
+              - anyTime
+              - pastMonth
+              - pastWeek
+              - past24Hours
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.JobListResponse"
+      security:
+        - ApiKeyAuth: []
+  /post/comments:
+    get:
+      tags:
+        - post_deprecated
+      description: GetPostComments - Returns a list of comments on a LinkedIn post
+      parameters:
+        - name: urn
+          in: query
+          description: LinkedIN post URN
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.PostComments"
+      security:
+        - ApiKeyAuth: []
+  /profile:
+    get:
+      tags:
+        - profile_deprecated
+      description: GetProfile - Returns public profile information of a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.GetProfileResult"
+      security:
+        - ApiKeyAuth: []
+  /profile/posts:
+    get:
+      tags:
+        - post_deprecated
+      description: GetProfilePosts - Returns a list of posts for LinkedIn Profile
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: LinkedIn profile URL
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.GetProfilePostsResult"
+      security:
+        - ApiKeyAuth: []
+  /profile/recommendations/given:
+    get:
+      tags:
+        - profile_deprecated
+      description:
+        GetProfileGivenRecommendations - Returns a list of recommendations
+        given by a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.RecommendationsGiven"
+      security:
+        - ApiKeyAuth: []
+  /profile/recommendations/received:
+    get:
+      tags:
+        - profile_deprecated
+      description:
+        GetProfileReceivedRecommendations - Returns a list of recommendations
+        received by a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.RecommendationsReceived"
+      security:
+        - ApiKeyAuth: []
+  /profile/search:
+    get:
+      tags:
+        - profile_deprecated
+      description: GetProfilePosts - Returns a list of posts for LinkedIn Profile
+      parameters:
+        - name: q
+          in: query
+          description: Any keyword you want to search people for
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: "Pagination offset 0, 10, 20, 30, multiplies by 10 on every page"
+          schema:
+            type: number
+        - name: school_id
+          in: query
+          description: ID Of the school you want to search people for
+          schema:
+            type: number
+        - name: keyword_school
+          in: query
+          description: School name
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: First name of the person
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: Last name of the person
+          schema:
+            type: string
+        - name: company_name
+          in: query
+          description: Name of the company
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: Title of the person
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/commonresponses.PeopleSearchResponse"
+      security:
+        - ApiKeyAuth: []
+  /v2/company:
+    get:
+      tags:
+        - company
+      description: GetCompanyUrl - Returns details about the company
+      parameters:
+        - name: li_company_url
+          in: query
+          description: LinkedIn company page URL
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.CompanyDetailsResponseV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/jobs/details:
+    get:
+      tags:
+        - jobs
+      description: GetJobDetails - Returns all the jobs details found on LinkedIn
+      parameters:
+        - name: job_id
+          in: query
+          description: If of the Job from LinkedIn received in the search results
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.JobDetailsResponseV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/jobs/search:
+    get:
+      tags:
+        - jobs
+      description: SearchJobs - Returns a list of jobs from search
+      parameters:
+        - name: company_ids
+          in: query
+          description: List of IDs of the companies
+          schema:
+            type: string
+        - name: salary
+          in: query
+          description: List of IDs of the companies
+          schema:
+            type: string
+            enum:
+              - 40k+
+              - 60k+
+              - 80k+
+              - 100k+
+              - 120k+
+              - 140k+
+              - 160k+
+              - 180k+
+              - 200k+
+        - name: job_type
+          in: query
+          description: Type of the job
+          schema:
+            type: string
+            enum:
+              - fullTime
+              - partTime
+              - contract
+              - internship
+        - name: sort
+          in: query
+          description: Sort the results by
+          schema:
+            type: string
+            enum:
+              - mostRelevant
+              - mostRecent
+        - name: keywords
+          in: query
+          description: Keywords to search for
+          schema:
+            type: string
+        - name: date_posted
+          in: query
+          description: Date posted
+          schema:
+            type: string
+            enum:
+              - anyTime
+              - pastMonth
+              - pastWeek
+              - past24Hours
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.JobListResponseV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/post/comments:
+    get:
+      tags:
+        - post
+      description: GetPostComments - Returns a list of comments on a LinkedIn post
+      parameters:
+        - name: urn
+          in: query
+          description: LinkedIN post URN
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.PostCommentsV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/profile:
+    get:
+      tags:
+        - profile
+      description: GetProfile - Returns public profile information of a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.ProfileResponseV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/profile/posts:
+    get:
+      tags:
+        - post
+      description: GetProfilePosts - Returns a list of posts for LinkedIn Profile
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: LinkedIn profile URL
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.GetProfilePostsResultV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/profile/recommendations/given:
+    get:
+      tags:
+        - profile
+      description:
+        GetProfileGivenRecommendations - Returns a list of recommendations
+        given by a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.RecommendationsGivenV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/profile/recommendations/received:
+    get:
+      tags:
+        - profile
+      description:
+        GetProfileReceivedRecommendations - Returns a list of recommendations
+        received by a LinkedIn user
+      parameters:
+        - name: li_profile_url
+          in: query
+          description: URL to LinkedIn profile
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.RecommendationsReceivedV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/profile/search:
+    get:
+      tags:
+        - profile
+      description: SearchPeople - Returns a list of people based on the criteria
+      parameters:
+        - name: q
+          in: query
+          description: Any keyword you want to search people for
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: "Pagination offset 0, 10, 20, 30, multiplies by 10 on every page"
+          schema:
+            type: number
+        - name: school_id
+          in: query
+          description: ID Of the school you want to search people for
+          schema:
+            type: number
+        - name: keyword_school
+          in: query
+          description: School name
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: First name of the person
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: Last name of the person
+          schema:
+            type: string
+        - name: company_name
+          in: query
+          description: Name of the company
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: Title of the person
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.PeopleSearchResponseV2"
+      security:
+        - ApiKeyAuth: []
+components:
+  schemas:
+    commonresponses.CompanyDetails:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            Images:
+              type: object
+              properties:
+                cover:
+                  type: string
+                logo:
+                  type: string
+            backgroundCoverImages:
+              type: array
+              items:
+                type: object
+                properties:
+                  height:
+                    type: integer
+                  url:
+                    type: string
+                  width:
+                    type: integer
+            callToAction:
+              type: object
+              properties:
+                callToActionMessage:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                    textDirection:
+                      type: string
+                callToActionType:
+                  type: string
+                url:
+                  type: string
+                visible:
+                  type: boolean
+            crunchbaseUrl:
+              type: string
+            description:
+              type: string
+            followerCount:
+              type: integer
+            founded:
+              type: object
+              properties:
+                day:
+                  type: integer
+                month:
+                  type: integer
+                year:
+                  type: integer
+            fundingData:
+              type: object
+              properties:
+                lastFundingRound:
+                  type: object
+                  properties:
+                    announcedOn:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        month:
+                          type: integer
+                        year:
+                          type: integer
+                    fundingRoundCrunchbaseUrl:
+                      type: string
+                    fundingType:
+                      type: string
+                    investorsCrunchbaseUrl:
+                      type: string
+                    leadInvestors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          investorCrunchbaseUrl:
+                            type: string
+                          name:
+                            type: string
+                    moneyRaised:
+                      type: object
+                      properties:
+                        amount:
+                          type: string
+                        currencyCode:
+                          type: string
+                    numOtherInvestors:
+                      type: integer
+                numFundingRounds:
+                  type: integer
+                updatedAt:
+                  type: string
+                updatedDate:
+                  type: string
+            headquarter:
+              type: object
+              properties:
+                city:
+                  type: string
+                country:
+                  type: string
+                geographicArea:
+                  type: string
+                line1:
+                  type: string
+                postalCode:
+                  type: string
+            id:
+              type: string
+            industries:
+              type: array
+              items:
+                type: string
+            locations:
+              type: array
+              items:
+                type: object
+                properties:
+                  city:
+                    type: string
+                  country:
+                    type: string
+                  geographicArea:
+                    type: string
+                  headquarter:
+                    type: boolean
+                  line1:
+                    type: string
+                  postalCode:
+                    type: string
+            logos:
+              type: array
+              items:
+                type: object
+                properties:
+                  height:
+                    type: integer
+                  url:
+                    type: string
+                  width:
+                    type: integer
+            name:
+              type: string
+            phone:
+              type: string
+            specialities:
+              type: array
+              items:
+                type: string
+            staffCount:
+              type: integer
+            staffCountRange:
+              type: string
+            tagline:
+              type: string
+            type:
+              type: string
+            universalName:
+              type: string
+            website:
+              type: string
+        message:
+          type: string
+        success:
+          type: boolean
+    commonresponses.ContentLanguage:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+    commonresponses.GetProfilePostsResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              InterestCount:
+                type: integer
+              appreciationCount:
+                type: integer
+              article:
+                type: object
+                properties:
+                  link:
+                    type: string
+                  subtitle:
+                    type: string
+                  title:
+                    type: string
+              author:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  profile_pictures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        height:
+                          type: integer
+                        url:
+                          type: string
+                        width:
+                          type: integer
+                  url:
+                    type: string
+                  username:
+                    type: string
+              commentsCount:
+                type: integer
+              company:
+                type: object
+                properties: {}
+              empathyCount:
+                type: integer
+              funnyCount:
+                type: integer
+              image:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+              likeCount:
+                type: integer
+              postUrl:
+                type: string
+              postedAt:
+                type: string
+              postedDate:
+                type: string
+              postedDateTimestamp:
+                type: integer
+              praiseCount:
+                type: integer
+              reposted:
+                type: boolean
+              repostsCount:
+                type: integer
+              resharedPost:
+                type: object
+                properties:
+                  article:
+                    type: object
+                    properties: {}
+                  author:
+                    type: object
+                    properties:
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      url:
+                        type: string
+                      username:
+                        type: string
+                  company:
+                    type: object
+                    properties: {}
+                  text:
+                    type: string
+                  video:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        duration:
+                          type: integer
+                        poster:
+                          type: string
+                        url:
+                          type: string
+              text:
+                type: string
+              totalReactionCount:
+                type: integer
+              urn:
+                type: string
+              video:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    duration:
+                      type: integer
+                    poster:
+                      type: string
+                    url:
+                      type: string
+        message:
+          type: string
+        paginationToken:
+          type: string
+        success:
+          type: boolean
+    commonresponses.GetProfileResult:
+      type: object
+      properties:
+        connection:
+          type: integer
+        data:
+          type: object
+          properties:
+            courses:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  number:
+                    type: string
+            educations:
+              type: array
+              items:
+                type: object
+                properties:
+                  activities:
+                    type: string
+                  degree:
+                    type: string
+                  description:
+                    type: string
+                  end:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                      month:
+                        type: integer
+                      year:
+                        type: integer
+                  fieldOfStudy:
+                    type: string
+                  grade:
+                    type: string
+                  schoolName:
+                    type: string
+                  start:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                      month:
+                        type: integer
+                      year:
+                        type: integer
+            firstName:
+              type: string
+            geo:
+              type: object
+              properties:
+                city:
+                  type: string
+                country:
+                  type: string
+                full:
+                  type: string
+            headline:
+              type: string
+            isHiring:
+              type: boolean
+            isOpenToWork:
+              type: boolean
+            languages:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  proficiency:
+                    type: string
+            lastName:
+              type: string
+            position:
+              type: array
+              items:
+                type: object
+                properties:
+                  companyName:
+                    type: string
+                  description:
+                    type: string
+                  employmentType:
+                    type: string
+                  end:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                      month:
+                        type: integer
+                      year:
+                        type: integer
+                  location:
+                    type: string
+                  start:
+                    type: object
+                    properties:
+                      day:
+                        type: integer
+                      month:
+                        type: integer
+                      year:
+                        type: integer
+                  title:
+                    type: string
+            profilePicture:
+              type: string
+            skills:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+            summary:
+              type: string
+        follower:
+          type: integer
+    commonresponses.JobApplyMethod:
+      type: object
+      properties:
+        companyApplyUrl:
+          type: string
+        easyApplyUrl:
+          type: string
+    commonresponses.JobCompany:
+      type: object
+      properties:
+        headquarter:
+          type: object
+        logo:
+          type: string
+        name:
+          type: string
+        staffCountRange:
+          type: object
+        url:
+          type: string
+    commonresponses.JobDetailsCompany:
+      type: object
+      properties:
+        description:
+          type: string
+        followerCount:
+          type: integer
+        headquarter:
+          type: object
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            geographicArea:
+              type: string
+            line1:
+              type: string
+            line2:
+              type: string
+            postalCode:
+              type: string
+        id:
+          type: integer
+        industries:
+          type: array
+          items:
+            type: string
+        logo:
+          type: string
+        name:
+          type: string
+        specialities:
+          type: array
+          items:
+            type: string
+        staffCount:
+          type: integer
+        staffCountRange:
+          type: object
+          properties:
+            end:
+              type: integer
+            start:
+              type: integer
+        universalName:
+          type: string
+        url:
+          type: string
+    commonresponses.JobDetailsData:
+      type: object
+      properties:
+        applyMethod:
+          $ref: "#/components/schemas/commonresponses.JobApplyMethod"
+        closed:
+          type: boolean
+        company:
+          $ref: "#/components/schemas/commonresponses.JobDetailsCompany"
+        contentLanguage:
+          $ref: "#/components/schemas/commonresponses.ContentLanguage"
+        description:
+          type: string
+        expireAt:
+          type: integer
+        formattedExperienceLevel:
+          type: string
+        formattedIndustries:
+          type: array
+          items:
+            type: string
+        formattedJobFunctions:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        industries:
+          type: array
+          items:
+            type: integer
+        jobFunctions:
+          type: array
+          items:
+            type: string
+        listedAt:
+          type: integer
+        listedAtDate:
+          type: string
+        location:
+          type: string
+        originalListedAt:
+          type: integer
+        originalListedDate:
+          type: string
+        state:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+        views:
+          type: integer
+        workPlace:
+          type: string
+        workRemoteAllowed:
+          type: boolean
+    commonresponses.JobItem:
+      type: object
+      properties:
+        benefits:
+          type: string
+        company:
+          $ref: "#/components/schemas/commonresponses.JobCompany"
+        id:
+          type: string
+        location:
+          type: string
+        postDate:
+          type: string
+        posterId:
+          type: string
+        referenceId:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+    commonresponses.JobListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/commonresponses.JobItem"
+        message:
+          type: string
+        success:
+          type: boolean
+        total:
+          type: integer
+    commonresponses.PeopleSearchResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  fullName:
+                    type: string
+                  headline:
+                    type: string
+                  location:
+                    type: string
+                  profilePicture:
+                    type: string
+                  profileURL:
+                    type: string
+                  summary:
+                    type: string
+                  username:
+                    type: string
+            total:
+              type: integer
+        message:
+          type: string
+        success:
+          type: boolean
+    commonresponses.PostComments:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              author:
+                type: object
+                properties:
+                  linkedinUrl:
+                    type: string
+                  name:
+                    type: string
+                  title:
+                    type: string
+                  urn:
+                    type: string
+                  username:
+                    type: string
+              createdAt:
+                type: integer
+              createdAtString:
+                type: string
+              isEdited:
+                type: boolean
+              isPinned:
+                type: boolean
+              permalink:
+                type: string
+              text:
+                type: string
+              threadUrn:
+                type: string
+        message:
+          type: string
+        paginationToken:
+          type: string
+        success:
+          type: boolean
+        total:
+          type: integer
+        totalPage:
+          type: integer
+    commonresponses.RecommendationsGiven:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              created:
+                type: integer
+              lastModified:
+                type: integer
+              recommendee:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  occupation:
+                    type: string
+                  username:
+                    type: string
+              relationship:
+                type: string
+              text:
+                type: string
+        message:
+          type: string
+        success:
+          type: boolean
+        total:
+          type: integer
+    commonresponses.RecommendationsReceived:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              created:
+                type: integer
+              lastModified:
+                type: integer
+              recommender:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  occupation:
+                    type: string
+                  username:
+                    type: string
+              relationship:
+                type: string
+              text:
+                type: string
+        message:
+          type: string
+        success:
+          type: boolean
+        total:
+          type: integer
+    responses.AnnouncedOn:
+      type: object
+      properties:
+        day:
+          type: integer
+        month:
+          type: integer
+        year:
+          type: integer
+    responses.BackgroundCover:
+      type: object
+      properties:
+        height:
+          type: integer
+        url:
+          type: string
+        width:
+          type: integer
+    responses.CallToAction:
+      type: object
+      properties:
+        call_to_action_message:
+          $ref: "#/components/schemas/responses.CallToActionMessage"
+        type:
+          type: string
+        url:
+          type: string
+        visible:
+          type: boolean
+    responses.CallToActionMessage:
+      type: object
+      properties:
+        text:
+          type: string
+        text_direction:
+          type: string
+    responses.Comment:
+      type: object
+      properties:
+        author:
+          $ref: "#/components/schemas/responses.CommentAuthor"
+        created_at:
+          type: integer
+        created_at_string:
+          type: string
+        edited:
+          type: boolean
+        permalink:
+          type: string
+        pinned:
+          type: boolean
+        text:
+          type: string
+        thread_urn:
+          type: string
+    responses.CommentAuthor:
+      type: object
+      properties:
+        linkedinUrl:
+          type: string
+        name:
+          type: string
+        title:
+          type: string
+        urn:
+          type: string
+        username:
+          type: string
+    responses.CompanyDetailsResponseV2:
+      type: object
+      properties:
+        background_covers:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.BackgroundCover"
+        call_to_action:
+          $ref: "#/components/schemas/responses.CallToAction"
+        crunchbase_url:
+          type: string
+        description:
+          type: string
+        followers_count:
+          type: integer
+        founded:
+          $ref: "#/components/schemas/responses.Founded"
+        funding:
+          $ref: "#/components/schemas/responses.Funding"
+        headquarter:
+          $ref: "#/components/schemas/responses.Headquarter"
+        id:
+          type: string
+        industries:
+          type: array
+          items:
+            type: string
+        locations:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.Location"
+        logos:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.Logo"
+        name:
+          type: string
+        phone:
+          type: string
+        pictures:
+          $ref: "#/components/schemas/responses.CompanyPicture"
+        specialities:
+          type: array
+          items:
+            type: string
+        staff_count:
+          type: integer
+        staff_count_range:
+          type: string
+        tagline:
+          type: string
+        type:
+          type: string
+        universal_name:
+          type: string
+        website:
+          type: string
+    responses.CompanyPicture:
+      type: object
+      properties:
+        cover:
+          type: string
+        logo:
+          type: string
+    responses.ContentLanguage:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+    responses.Founded:
+      type: object
+      properties:
+        day:
+          type: integer
+        month:
+          type: integer
+        yeah:
+          type: integer
+    responses.Funding:
+      type: object
+      properties:
+        last_round:
+          $ref: "#/components/schemas/responses.LastFundingRound"
+        num_rounds:
+          type: integer
+        updated_at:
+          type: string
+        updated_date:
+          type: string
+    responses.GetProfilePostsResultV2:
+      type: object
+      properties:
+        pagination_token:
+          type: string
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfilePost"
+    responses.Headquarter:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        first_line:
+          type: string
+        geographic_area:
+          type: string
+        postal_code:
+          type: string
+    responses.JobApplyMethod:
+      type: object
+      properties:
+        company_apply_url:
+          type: string
+        easy_apply_url:
+          type: string
+    responses.JobCompany:
+      type: object
+      properties:
+        headquarter:
+          type: object
+        logo:
+          type: string
+        name:
+          type: string
+        staff_count_range:
+          type: object
+        url:
+          type: string
+    responses.JobCompanyHeadQuarter:
+      type: object
+      properties:
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        geographic_area:
+          type: string
+        postal_code:
+          type: string
+    responses.JobDetailsCompany:
+      type: object
+      properties:
+        description:
+          type: string
+        followers_count:
+          type: integer
+        headquarter:
+          $ref: "#/components/schemas/responses.JobCompanyHeadQuarter"
+        id:
+          type: integer
+        industries:
+          type: array
+          items:
+            type: string
+        logo:
+          type: string
+        name:
+          type: string
+        specialities:
+          type: array
+          items:
+            type: string
+        staff_count:
+          type: integer
+        staff_count_range:
+          $ref: "#/components/schemas/responses.StaffCountRange"
+        universal_name:
+          type: string
+        url:
+          type: string
+    responses.JobDetailsResponseV2:
+      type: object
+      properties:
+        apply_method:
+          $ref: "#/components/schemas/responses.JobApplyMethod"
+        closed:
+          type: boolean
+        company:
+          $ref: "#/components/schemas/responses.JobDetailsCompany"
+        content_language:
+          $ref: "#/components/schemas/responses.ContentLanguage"
+        description:
+          type: string
+        expireAt:
+          type: integer
+        formatted_experience_level:
+          type: string
+        formatted_industries:
+          type: array
+          items:
+            type: string
+        formatted_job_functions:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        industries:
+          type: array
+          items:
+            type: integer
+        job_functions:
+          type: array
+          items:
+            type: string
+        listed_at_date:
+          type: string
+        location:
+          type: string
+        original_listed_date:
+          type: string
+        state:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+        views:
+          type: integer
+        work_remote_allowed:
+          type: boolean
+        workPlace:
+          type: string
+    responses.JobItem:
+      type: object
+      properties:
+        benefits:
+          type: string
+        company:
+          $ref: "#/components/schemas/responses.JobCompany"
+        id:
+          type: string
+        location:
+          type: string
+        post_date:
+          type: string
+        poster_id:
+          type: string
+        reference_id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+    responses.JobListResponseV2:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobItem"
+        total:
+          type: integer
+    responses.LastFundingRound:
+      type: object
+      properties:
+        announced_on:
+          $ref: "#/components/schemas/responses.AnnouncedOn"
+        funding_round_crunchbase_url:
+          type: string
+        funding_type:
+          type: string
+        investors_crunchbase_url:
+          type: string
+        lead_investors:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.LeadInvestor"
+        num_other_investors:
+          type: integer
+        raised:
+          $ref: "#/components/schemas/responses.MoneyRaised"
+    responses.LeadInvestor:
+      type: object
+      properties:
+        investor_crunchbase_url:
+          type: string
+        name:
+          type: string
+    responses.Location:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        first_line:
+          type: string
+        geographic_area:
+          type: string
+        headquarter:
+          type: boolean
+        postal_code:
+          type: string
+        second_line:
+          type: string
+    responses.Logo:
+      type: object
+      properties:
+        height:
+          type: integer
+        url:
+          type: string
+        width:
+          type: integer
+    responses.MoneyRaised:
+      type: object
+      properties:
+        amount:
+          type: string
+        currency:
+          type: string
+    responses.People:
+      type: object
+      properties:
+        fullName:
+          type: string
+        headline:
+          type: string
+        location:
+          type: string
+        profilePicture:
+          type: string
+        profileURL:
+          type: string
+        summary:
+          type: string
+        username:
+          type: string
+    responses.PeopleSearchResponseV2:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.People"
+        total:
+          type: integer
+    responses.PostCommentsV2:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.Comment"
+        pagination_token:
+          type: string
+        total:
+          type: integer
+        total_page:
+          type: integer
+    responses.ProfilPostVideo:
+      type: object
+      properties:
+        duration:
+          type: integer
+        poster:
+          type: string
+        url:
+          type: string
+    responses.ProfileAudience:
+      type: object
+      properties:
+        connections:
+          type: integer
+        followers:
+          type: integer
+    responses.ProfileCourse:
+      type: object
+      properties:
+        name:
+          type: string
+        number:
+          type: string
+    responses.ProfileEducation:
+      type: object
+      properties:
+        activities:
+          type: string
+        degree:
+          type: string
+        description:
+          type: string
+        end:
+          type: string
+        field:
+          type: string
+        grade:
+          type: string
+        school_name:
+          type: string
+        start:
+          type: string
+    responses.ProfileExperience:
+      type: object
+      properties:
+        comapny_name:
+          type: string
+        description:
+          type: string
+        employment_type:
+          type: string
+        end:
+          type: string
+        location:
+          type: string
+        start:
+          type: string
+        title:
+          type: string
+    responses.ProfileLanguage:
+      type: object
+      properties:
+        name:
+          type: string
+        proficiency:
+          type: string
+    responses.ProfileLocation:
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        full:
+          type: string
+    responses.ProfilePicture:
+      type: object
+      properties:
+        height:
+          type: integer
+        url:
+          type: string
+        width:
+          type: integer
+    responses.ProfilePost:
+      type: object
+      properties:
+        appreciations_count:
+          type: integer
+        article:
+          $ref: "#/components/schemas/responses.ProfilePostArticle"
+        author:
+          $ref: "#/components/schemas/responses.ProfilePostAuthor"
+        comments_count:
+          type: integer
+        empathy_count:
+          type: integer
+        funny_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfilePostImage"
+        interest_count:
+          type: integer
+        likes_count:
+          type: integer
+        post_url:
+          type: string
+        posted_at:
+          type: string
+        praise_count:
+          type: integer
+        reposted:
+          type: boolean
+        reposts_count:
+          type: integer
+        reshared_post:
+          $ref: "#/components/schemas/responses.ProfilePostReShared"
+        text:
+          type: string
+        total_reactions_count:
+          type: integer
+        urn:
+          type: string
+        videos:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfilPostVideo"
+    responses.ProfilePostArticle:
+      type: object
+      properties:
+        link:
+          type: string
+        subtitle:
+          type: string
+        title:
+          type: string
+    responses.ProfilePostAuthor:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        profile_pictures:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfilePicture"
+        url:
+          type: string
+        username:
+          type: string
+    responses.ProfilePostImage:
+      type: object
+      properties:
+        url:
+          type: string
+    responses.ProfilePostReShared:
+      type: object
+      properties:
+        article:
+          $ref: "#/components/schemas/responses.ProfilePostArticle"
+        author:
+          $ref: "#/components/schemas/responses.ProfilePostAuthor"
+        text:
+          type: string
+        videos:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfilPostVideo"
+    responses.ProfileResponseV2:
+      type: object
+      properties:
+        audience:
+          $ref: "#/components/schemas/responses.ProfileAudience"
+        courses:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfileCourse"
+        educations:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfileEducation"
+        experiences:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfileExperience"
+        first_name:
+          type: string
+        headline:
+          type: string
+        is_hiring:
+          type: boolean
+        is_open_to_work:
+          type: boolean
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfileLanguage"
+        last_name:
+          type: string
+        location:
+          $ref: "#/components/schemas/responses.ProfileLocation"
+        picture:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.ProfileSkill"
+        summary:
+          type: string
+    responses.ProfileSkill:
+      type: object
+      properties:
+        name:
+          type: string
+    responses.RecommendationGiven:
+      type: object
+      properties:
+        created:
+          type: integer
+        last_modified:
+          type: integer
+        recommendee:
+          $ref: "#/components/schemas/responses.User"
+        relationship:
+          type: string
+        text:
+          type: string
+    responses.RecommendationReceived:
+      type: object
+      properties:
+        created:
+          type: integer
+        lastModified:
+          type: integer
+        recommender:
+          $ref: "#/components/schemas/responses.User"
+        relationship:
+          type: string
+        text:
+          type: string
+    responses.RecommendationsGivenV2:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.RecommendationGiven"
+        total:
+          type: integer
+    responses.RecommendationsReceivedV2:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.RecommendationReceived"
+        total:
+          type: integer
+    responses.StaffCountRange:
+      type: object
+      properties:
+        end:
+          type: integer
+        start:
+          type: integer
+    responses.User:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        occupation:
+          type: string
+        username:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      description: API Key obtained on https://app.getapihub.cloud
+      name: x-api-key
+      in: header
+x-original-swagger-version: "2.0"
