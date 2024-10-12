@@ -1756,7 +1756,7 @@ components:
           type: string
         number:
           type: string
-    responses.ProfileEducation:
+    responses.ProfileEducationV2:
       type: object
       properties:
         activities:
@@ -1766,7 +1766,7 @@ components:
         description:
           type: string
         end:
-          type: string
+          $ref: "#/components/schemas/utils.LinkedInDateObj"
         field:
           type: string
         grade:
@@ -1774,8 +1774,8 @@ components:
         school_name:
           type: string
         start:
-          type: string
-    responses.ProfileExperience:
+          $ref: "#/components/schemas/utils.LinkedInDateObj"
+    responses.ProfileExperienceV2:
       type: object
       properties:
         comapny_name:
@@ -1785,11 +1785,11 @@ components:
         employment_type:
           type: string
         end:
-          type: string
+          $ref: "#/components/schemas/utils.LinkedInDateObj"
         location:
           type: string
         start:
-          type: string
+          $ref: "#/components/schemas/utils.LinkedInDateObj"
         title:
           type: string
     responses.ProfileLanguage:
@@ -1844,6 +1844,8 @@ components:
           type: string
         posted_at:
           type: string
+        posted_at_timestamp:
+          type: integer
         praise_count:
           type: integer
         reposted:
@@ -1916,11 +1918,11 @@ components:
         educations:
           type: array
           items:
-            $ref: "#/components/schemas/responses.ProfileEducation"
+            $ref: "#/components/schemas/responses.ProfileEducationV2"
         experiences:
           type: array
           items:
-            $ref: "#/components/schemas/responses.ProfileExperience"
+            $ref: "#/components/schemas/responses.ProfileExperienceV2"
         first_name:
           type: string
         headline:
@@ -2012,6 +2014,15 @@ components:
           type: string
         username:
           type: string
+    utils.LinkedInDateObj:
+      type: object
+      properties:
+        day:
+          type: integer
+        month:
+          type: integer
+        year:
+          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -776,27 +776,27 @@ type ResponsesProfileCourse struct {
 	Number *string `json:"number,omitempty"`
 }
 
-// ResponsesProfileEducation defines model for responses.ProfileEducation.
-type ResponsesProfileEducation struct {
-	Activities  *string `json:"activities,omitempty"`
-	Degree      *string `json:"degree,omitempty"`
-	Description *string `json:"description,omitempty"`
-	End         *string `json:"end,omitempty"`
-	Field       *string `json:"field,omitempty"`
-	Grade       *string `json:"grade,omitempty"`
-	SchoolName  *string `json:"school_name,omitempty"`
-	Start       *string `json:"start,omitempty"`
+// ResponsesProfileEducationV2 defines model for responses.ProfileEducationV2.
+type ResponsesProfileEducationV2 struct {
+	Activities  *string               `json:"activities,omitempty"`
+	Degree      *string               `json:"degree,omitempty"`
+	Description *string               `json:"description,omitempty"`
+	End         *UtilsLinkedInDateObj `json:"end,omitempty"`
+	Field       *string               `json:"field,omitempty"`
+	Grade       *string               `json:"grade,omitempty"`
+	SchoolName  *string               `json:"school_name,omitempty"`
+	Start       *UtilsLinkedInDateObj `json:"start,omitempty"`
 }
 
-// ResponsesProfileExperience defines model for responses.ProfileExperience.
-type ResponsesProfileExperience struct {
-	ComapnyName    *string `json:"comapny_name,omitempty"`
-	Description    *string `json:"description,omitempty"`
-	EmploymentType *string `json:"employment_type,omitempty"`
-	End            *string `json:"end,omitempty"`
-	Location       *string `json:"location,omitempty"`
-	Start          *string `json:"start,omitempty"`
-	Title          *string `json:"title,omitempty"`
+// ResponsesProfileExperienceV2 defines model for responses.ProfileExperienceV2.
+type ResponsesProfileExperienceV2 struct {
+	ComapnyName    *string               `json:"comapny_name,omitempty"`
+	Description    *string               `json:"description,omitempty"`
+	EmploymentType *string               `json:"employment_type,omitempty"`
+	End            *UtilsLinkedInDateObj `json:"end,omitempty"`
+	Location       *string               `json:"location,omitempty"`
+	Start          *UtilsLinkedInDateObj `json:"start,omitempty"`
+	Title          *string               `json:"title,omitempty"`
 }
 
 // ResponsesProfileLanguage defines model for responses.ProfileLanguage.
@@ -832,6 +832,7 @@ type ResponsesProfilePost struct {
 	LikesCount          *int                          `json:"likes_count,omitempty"`
 	PostUrl             *string                       `json:"post_url,omitempty"`
 	PostedAt            *string                       `json:"posted_at,omitempty"`
+	PostedAtTimestamp   *int                          `json:"posted_at_timestamp,omitempty"`
 	PraiseCount         *int                          `json:"praise_count,omitempty"`
 	Reposted            *bool                         `json:"reposted,omitempty"`
 	RepostsCount        *int                          `json:"reposts_count,omitempty"`
@@ -873,20 +874,20 @@ type ResponsesProfilePostReShared struct {
 
 // ResponsesProfileResponseV2 defines model for responses.ProfileResponseV2.
 type ResponsesProfileResponseV2 struct {
-	Audience     *ResponsesProfileAudience     `json:"audience,omitempty"`
-	Courses      *[]ResponsesProfileCourse     `json:"courses,omitempty"`
-	Educations   *[]ResponsesProfileEducation  `json:"educations,omitempty"`
-	Experiences  *[]ResponsesProfileExperience `json:"experiences,omitempty"`
-	FirstName    *string                       `json:"first_name,omitempty"`
-	Headline     *string                       `json:"headline,omitempty"`
-	IsHiring     *bool                         `json:"is_hiring,omitempty"`
-	IsOpenToWork *bool                         `json:"is_open_to_work,omitempty"`
-	Languages    *[]ResponsesProfileLanguage   `json:"languages,omitempty"`
-	LastName     *string                       `json:"last_name,omitempty"`
-	Location     *ResponsesProfileLocation     `json:"location,omitempty"`
-	Picture      *string                       `json:"picture,omitempty"`
-	Skills       *[]ResponsesProfileSkill      `json:"skills,omitempty"`
-	Summary      *string                       `json:"summary,omitempty"`
+	Audience     *ResponsesProfileAudience       `json:"audience,omitempty"`
+	Courses      *[]ResponsesProfileCourse       `json:"courses,omitempty"`
+	Educations   *[]ResponsesProfileEducationV2  `json:"educations,omitempty"`
+	Experiences  *[]ResponsesProfileExperienceV2 `json:"experiences,omitempty"`
+	FirstName    *string                         `json:"first_name,omitempty"`
+	Headline     *string                         `json:"headline,omitempty"`
+	IsHiring     *bool                           `json:"is_hiring,omitempty"`
+	IsOpenToWork *bool                           `json:"is_open_to_work,omitempty"`
+	Languages    *[]ResponsesProfileLanguage     `json:"languages,omitempty"`
+	LastName     *string                         `json:"last_name,omitempty"`
+	Location     *ResponsesProfileLocation       `json:"location,omitempty"`
+	Picture      *string                         `json:"picture,omitempty"`
+	Skills       *[]ResponsesProfileSkill        `json:"skills,omitempty"`
+	Summary      *string                         `json:"summary,omitempty"`
 }
 
 // ResponsesProfileSkill defines model for responses.ProfileSkill.
@@ -936,6 +937,13 @@ type ResponsesUser struct {
 	LastName   *string `json:"last_name,omitempty"`
 	Occupation *string `json:"occupation,omitempty"`
 	Username   *string `json:"username,omitempty"`
+}
+
+// UtilsLinkedInDateObj defines model for utils.LinkedInDateObj.
+type UtilsLinkedInDateObj struct {
+	Day   *int `json:"day,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Year  *int `json:"year,omitempty"`
 }
 
 // GetCompanyParams defines parameters for GetCompany.
