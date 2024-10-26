@@ -326,6 +326,26 @@ paths:
                 $ref: "#/components/schemas/responses.JobDetailsResponseV2"
       security:
         - ApiKeyAuth: []
+  /v2/jobs/hiringteam:
+    get:
+      tags:
+        - jobs
+      description: GetJobHiringTeam - Returns a hiring team for a job
+      parameters:
+        - name: job_ud
+          in: query
+          description: ID of the Job On LinkedIn
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.JobHiringTeamResponseV2"
+      security:
+        - ApiKeyAuth: []
   /v2/jobs/search:
     get:
       tags:
@@ -1602,6 +1622,37 @@ components:
         work_remote_allowed:
           type: boolean
         workPlace:
+          type: string
+    responses.JobHiringTeamProfilePicture:
+      type: object
+      properties:
+        height:
+          type: integer
+        url:
+          type: string
+        width:
+          type: integer
+    responses.JobHiringTeamResponseV2:
+      type: object
+      properties:
+        team:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobHiringTeamV2"
+    responses.JobHiringTeamV2:
+      type: object
+      properties:
+        full_name:
+          type: string
+        headline:
+          type: string
+        profile_pictures:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobHiringTeamProfilePicture"
+        url:
+          type: string
+        username:
           type: string
     responses.JobItem:
       type: object

@@ -671,6 +671,27 @@ type ResponsesJobDetailsResponseV2 struct {
 	WorkRemoteAllowed        *bool                       `json:"work_remote_allowed,omitempty"`
 }
 
+// ResponsesJobHiringTeamProfilePicture defines model for responses.JobHiringTeamProfilePicture.
+type ResponsesJobHiringTeamProfilePicture struct {
+	Height *int    `json:"height,omitempty"`
+	Url    *string `json:"url,omitempty"`
+	Width  *int    `json:"width,omitempty"`
+}
+
+// ResponsesJobHiringTeamResponseV2 defines model for responses.JobHiringTeamResponseV2.
+type ResponsesJobHiringTeamResponseV2 struct {
+	Team *[]ResponsesJobHiringTeamV2 `json:"team,omitempty"`
+}
+
+// ResponsesJobHiringTeamV2 defines model for responses.JobHiringTeamV2.
+type ResponsesJobHiringTeamV2 struct {
+	FullName        *string                                 `json:"full_name,omitempty"`
+	Headline        *string                                 `json:"headline,omitempty"`
+	ProfilePictures *[]ResponsesJobHiringTeamProfilePicture `json:"profile_pictures,omitempty"`
+	Url             *string                                 `json:"url,omitempty"`
+	Username        *string                                 `json:"username,omitempty"`
+}
+
 // ResponsesJobItem defines model for responses.JobItem.
 type ResponsesJobItem struct {
 	Benefits    *string              `json:"benefits,omitempty"`
@@ -1060,6 +1081,12 @@ type GetV2JobsDetailsParams struct {
 	JobId string `form:"job_id" json:"job_id"`
 }
 
+// GetV2JobsHiringteamParams defines parameters for GetV2JobsHiringteam.
+type GetV2JobsHiringteamParams struct {
+	// JobUd ID of the Job On LinkedIn
+	JobUd *string `form:"job_ud,omitempty" json:"job_ud,omitempty"`
+}
+
 // GetV2JobsSearchParams defines parameters for GetV2JobsSearch.
 type GetV2JobsSearchParams struct {
 	// CompanyIds List of IDs of the companies
@@ -1256,6 +1283,9 @@ type ClientInterface interface {
 	// GetV2JobsDetails request
 	GetV2JobsDetails(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetV2JobsHiringteam request
+	GetV2JobsHiringteam(ctx context.Context, params *GetV2JobsHiringteamParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetV2JobsSearch request
 	GetV2JobsSearch(ctx context.Context, params *GetV2JobsSearchParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1400,6 +1430,18 @@ func (c *Client) GetV2Company(ctx context.Context, params *GetV2CompanyParams, r
 
 func (c *Client) GetV2JobsDetails(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetV2JobsDetailsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetV2JobsHiringteam(ctx context.Context, params *GetV2JobsHiringteamParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetV2JobsHiringteamRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2189,6 +2231,55 @@ func NewGetV2JobsDetailsRequest(server string, params *GetV2JobsDetailsParams) (
 	return req, nil
 }
 
+// NewGetV2JobsHiringteamRequest generates requests for GetV2JobsHiringteam
+func NewGetV2JobsHiringteamRequest(server string, params *GetV2JobsHiringteamParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v2/jobs/hiringteam")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.JobUd != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "job_ud", runtime.ParamLocationQuery, *params.JobUd); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetV2JobsSearchRequest generates requests for GetV2JobsSearch
 func NewGetV2JobsSearchRequest(server string, params *GetV2JobsSearchParams) (*http.Request, error) {
 	var err error
@@ -2780,6 +2871,9 @@ type ClientWithResponsesInterface interface {
 	// GetV2JobsDetailsWithResponse request
 	GetV2JobsDetailsWithResponse(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*GetV2JobsDetailsResponse, error)
 
+	// GetV2JobsHiringteamWithResponse request
+	GetV2JobsHiringteamWithResponse(ctx context.Context, params *GetV2JobsHiringteamParams, reqEditors ...RequestEditorFn) (*GetV2JobsHiringteamResponse, error)
+
 	// GetV2JobsSearchWithResponse request
 	GetV2JobsSearchWithResponse(ctx context.Context, params *GetV2JobsSearchParams, reqEditors ...RequestEditorFn) (*GetV2JobsSearchResponse, error)
 
@@ -3033,6 +3127,27 @@ func (r GetV2JobsDetailsResponse) StatusCode() int {
 	return 0
 }
 
+type GetV2JobsHiringteamResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r GetV2JobsHiringteamResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetV2JobsHiringteamResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type GetV2JobsSearchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -3279,6 +3394,15 @@ func (c *ClientWithResponses) GetV2JobsDetailsWithResponse(ctx context.Context, 
 	return ParseGetV2JobsDetailsResponse(rsp)
 }
 
+// GetV2JobsHiringteamWithResponse request returning *GetV2JobsHiringteamResponse
+func (c *ClientWithResponses) GetV2JobsHiringteamWithResponse(ctx context.Context, params *GetV2JobsHiringteamParams, reqEditors ...RequestEditorFn) (*GetV2JobsHiringteamResponse, error) {
+	rsp, err := c.GetV2JobsHiringteam(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetV2JobsHiringteamResponse(rsp)
+}
+
 // GetV2JobsSearchWithResponse request returning *GetV2JobsSearchResponse
 func (c *ClientWithResponses) GetV2JobsSearchWithResponse(ctx context.Context, params *GetV2JobsSearchParams, reqEditors ...RequestEditorFn) (*GetV2JobsSearchResponse, error) {
 	rsp, err := c.GetV2JobsSearch(ctx, params, reqEditors...)
@@ -3511,6 +3635,22 @@ func ParseGetV2JobsDetailsResponse(rsp *http.Response) (*GetV2JobsDetailsRespons
 	}
 
 	response := &GetV2JobsDetailsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
+// ParseGetV2JobsHiringteamResponse parses an HTTP response from a GetV2JobsHiringteamWithResponse call
+func ParseGetV2JobsHiringteamResponse(rsp *http.Response) (*GetV2JobsHiringteamResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetV2JobsHiringteamResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
