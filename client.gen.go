@@ -1083,8 +1083,8 @@ type GetV2JobsDetailsParams struct {
 
 // GetV2JobsHiringteamParams defines parameters for GetV2JobsHiringteam.
 type GetV2JobsHiringteamParams struct {
-	// JobUd ID of the Job On LinkedIn
-	JobUd *string `form:"job_ud,omitempty" json:"job_ud,omitempty"`
+	// JobId ID of the Job On LinkedIn
+	JobId *string `form:"job_id,omitempty" json:"job_id,omitempty"`
 }
 
 // GetV2JobsSearchParams defines parameters for GetV2JobsSearch.
@@ -2253,9 +2253,9 @@ func NewGetV2JobsHiringteamRequest(server string, params *GetV2JobsHiringteamPar
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if params.JobUd != nil {
+		if params.JobId != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "job_ud", runtime.ParamLocationQuery, *params.JobUd); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "job_id", runtime.ParamLocationQuery, *params.JobId); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
