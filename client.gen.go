@@ -90,91 +90,94 @@ const (
 
 // CommonresponsesCompanyDetails defines model for commonresponses.CompanyDetails.
 type CommonresponsesCompanyDetails struct {
-	Data *struct {
-		Images *struct {
-			Cover *string `json:"cover,omitempty"`
-			Logo  *string `json:"logo,omitempty"`
-		} `json:"Images,omitempty"`
-		BackgroundCoverImages *[]struct {
-			Height *int    `json:"height,omitempty"`
-			Url    *string `json:"url,omitempty"`
-			Width  *int    `json:"width,omitempty"`
-		} `json:"backgroundCoverImages,omitempty"`
-		CallToAction *struct {
-			CallToActionMessage *struct {
-				Text          *string `json:"text,omitempty"`
-				TextDirection *string `json:"textDirection,omitempty"`
-			} `json:"callToActionMessage,omitempty"`
-			CallToActionType *string `json:"callToActionType,omitempty"`
-			Url              *string `json:"url,omitempty"`
-			Visible          *bool   `json:"visible,omitempty"`
-		} `json:"callToAction,omitempty"`
-		CrunchbaseUrl *string `json:"crunchbaseUrl,omitempty"`
-		Description   *string `json:"description,omitempty"`
-		FollowerCount *int    `json:"followerCount,omitempty"`
-		Founded       *struct {
-			Day   *int `json:"day,omitempty"`
-			Month *int `json:"month,omitempty"`
-			Year  *int `json:"year,omitempty"`
-		} `json:"founded,omitempty"`
-		FundingData *struct {
-			LastFundingRound *struct {
-				AnnouncedOn *struct {
-					Day   *int `json:"day,omitempty"`
-					Month *int `json:"month,omitempty"`
-					Year  *int `json:"year,omitempty"`
-				} `json:"announcedOn,omitempty"`
-				FundingRoundCrunchbaseUrl *string `json:"fundingRoundCrunchbaseUrl,omitempty"`
-				FundingType               *string `json:"fundingType,omitempty"`
-				InvestorsCrunchbaseUrl    *string `json:"investorsCrunchbaseUrl,omitempty"`
-				LeadInvestors             *[]struct {
-					InvestorCrunchbaseUrl *string `json:"investorCrunchbaseUrl,omitempty"`
-					Name                  *string `json:"name,omitempty"`
-				} `json:"leadInvestors,omitempty"`
-				MoneyRaised *struct {
-					Amount       *string `json:"amount,omitempty"`
-					CurrencyCode *string `json:"currencyCode,omitempty"`
-				} `json:"moneyRaised,omitempty"`
-				NumOtherInvestors *int `json:"numOtherInvestors,omitempty"`
-			} `json:"lastFundingRound,omitempty"`
-			NumFundingRounds *int    `json:"numFundingRounds,omitempty"`
-			UpdatedAt        *string `json:"updatedAt,omitempty"`
-			UpdatedDate      *string `json:"updatedDate,omitempty"`
-		} `json:"fundingData,omitempty"`
-		Headquarter *struct {
-			City           *string `json:"city,omitempty"`
-			Country        *string `json:"country,omitempty"`
-			GeographicArea *string `json:"geographicArea,omitempty"`
-			Line1          *string `json:"line1,omitempty"`
-			PostalCode     *string `json:"postalCode,omitempty"`
-		} `json:"headquarter,omitempty"`
-		Id         *string   `json:"id,omitempty"`
-		Industries *[]string `json:"industries,omitempty"`
-		Locations  *[]struct {
-			City           *string `json:"city,omitempty"`
-			Country        *string `json:"country,omitempty"`
-			GeographicArea *string `json:"geographicArea,omitempty"`
-			Headquarter    *bool   `json:"headquarter,omitempty"`
-			Line1          *string `json:"line1,omitempty"`
-			PostalCode     *string `json:"postalCode,omitempty"`
-		} `json:"locations,omitempty"`
-		Logos *[]struct {
-			Height *int    `json:"height,omitempty"`
-			Url    *string `json:"url,omitempty"`
-			Width  *int    `json:"width,omitempty"`
-		} `json:"logos,omitempty"`
-		Name            *string   `json:"name,omitempty"`
-		Phone           *string   `json:"phone,omitempty"`
-		Specialities    *[]string `json:"specialities,omitempty"`
-		StaffCount      *int      `json:"staffCount,omitempty"`
-		StaffCountRange *string   `json:"staffCountRange,omitempty"`
-		Tagline         *string   `json:"tagline,omitempty"`
-		Type            *string   `json:"type,omitempty"`
-		UniversalName   *string   `json:"universalName,omitempty"`
-		Website         *string   `json:"website,omitempty"`
-	} `json:"data,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Success *bool   `json:"success,omitempty"`
+	Data    *CommonresponsesCompanyDetailsData `json:"data,omitempty"`
+	Message *string                            `json:"message,omitempty"`
+	Success *bool                              `json:"success,omitempty"`
+}
+
+// CommonresponsesCompanyDetailsData defines model for commonresponses.CompanyDetailsData.
+type CommonresponsesCompanyDetailsData struct {
+	Images *struct {
+		Cover *string `json:"cover,omitempty"`
+		Logo  *string `json:"logo,omitempty"`
+	} `json:"Images,omitempty"`
+	BackgroundCoverImages *[]struct {
+		Height *int    `json:"height,omitempty"`
+		Url    *string `json:"url,omitempty"`
+		Width  *int    `json:"width,omitempty"`
+	} `json:"backgroundCoverImages,omitempty"`
+	CallToAction *struct {
+		CallToActionMessage *struct {
+			Text          *string `json:"text,omitempty"`
+			TextDirection *string `json:"textDirection,omitempty"`
+		} `json:"callToActionMessage,omitempty"`
+		CallToActionType *string `json:"callToActionType,omitempty"`
+		Url              *string `json:"url,omitempty"`
+		Visible          *bool   `json:"visible,omitempty"`
+	} `json:"callToAction,omitempty"`
+	CrunchbaseUrl *string `json:"crunchbaseUrl,omitempty"`
+	Description   *string `json:"description,omitempty"`
+	FollowerCount *int    `json:"followerCount,omitempty"`
+	Founded       *struct {
+		Day   *int `json:"day,omitempty"`
+		Month *int `json:"month,omitempty"`
+		Year  *int `json:"year,omitempty"`
+	} `json:"founded,omitempty"`
+	FundingData *struct {
+		LastFundingRound *struct {
+			AnnouncedOn *struct {
+				Day   *int `json:"day,omitempty"`
+				Month *int `json:"month,omitempty"`
+				Year  *int `json:"year,omitempty"`
+			} `json:"announcedOn,omitempty"`
+			FundingRoundCrunchbaseUrl *string `json:"fundingRoundCrunchbaseUrl,omitempty"`
+			FundingType               *string `json:"fundingType,omitempty"`
+			InvestorsCrunchbaseUrl    *string `json:"investorsCrunchbaseUrl,omitempty"`
+			LeadInvestors             *[]struct {
+				InvestorCrunchbaseUrl *string `json:"investorCrunchbaseUrl,omitempty"`
+				Name                  *string `json:"name,omitempty"`
+			} `json:"leadInvestors,omitempty"`
+			MoneyRaised *struct {
+				Amount       *string `json:"amount,omitempty"`
+				CurrencyCode *string `json:"currencyCode,omitempty"`
+			} `json:"moneyRaised,omitempty"`
+			NumOtherInvestors *int `json:"numOtherInvestors,omitempty"`
+		} `json:"lastFundingRound,omitempty"`
+		NumFundingRounds *int    `json:"numFundingRounds,omitempty"`
+		UpdatedAt        *string `json:"updatedAt,omitempty"`
+		UpdatedDate      *string `json:"updatedDate,omitempty"`
+	} `json:"fundingData,omitempty"`
+	Headquarter *struct {
+		City           *string `json:"city,omitempty"`
+		Country        *string `json:"country,omitempty"`
+		GeographicArea *string `json:"geographicArea,omitempty"`
+		Line1          *string `json:"line1,omitempty"`
+		PostalCode     *string `json:"postalCode,omitempty"`
+	} `json:"headquarter,omitempty"`
+	Id         *string   `json:"id,omitempty"`
+	Industries *[]string `json:"industries,omitempty"`
+	Locations  *[]struct {
+		City           *string `json:"city,omitempty"`
+		Country        *string `json:"country,omitempty"`
+		GeographicArea *string `json:"geographicArea,omitempty"`
+		Headquarter    *bool   `json:"headquarter,omitempty"`
+		Line1          *string `json:"line1,omitempty"`
+		PostalCode     *string `json:"postalCode,omitempty"`
+	} `json:"locations,omitempty"`
+	Logos *[]struct {
+		Height *int    `json:"height,omitempty"`
+		Url    *string `json:"url,omitempty"`
+		Width  *int    `json:"width,omitempty"`
+	} `json:"logos,omitempty"`
+	Name            *string   `json:"name,omitempty"`
+	Phone           *string   `json:"phone,omitempty"`
+	Specialities    *[]string `json:"specialities,omitempty"`
+	StaffCount      *int      `json:"staffCount,omitempty"`
+	StaffCountRange *string   `json:"staffCountRange,omitempty"`
+	Tagline         *string   `json:"tagline,omitempty"`
+	Type            *string   `json:"type,omitempty"`
+	UniversalName   *string   `json:"universalName,omitempty"`
+	Website         *string   `json:"website,omitempty"`
 }
 
 // CommonresponsesContentLanguage defines model for commonresponses.ContentLanguage.
@@ -204,11 +207,14 @@ type CommonresponsesGetProfilePostsResult struct {
 			Url      *string `json:"url,omitempty"`
 			Username *string `json:"username,omitempty"`
 		} `json:"author,omitempty"`
-		CommentsCount *int                    `json:"commentsCount,omitempty"`
-		Company       *map[string]interface{} `json:"company,omitempty"`
-		EmpathyCount  *int                    `json:"empathyCount,omitempty"`
-		FunnyCount    *int                    `json:"funnyCount,omitempty"`
-		Image         *[]struct {
+		CommentsCount *int `json:"commentsCount,omitempty"`
+		Company       *struct {
+			Name *string `json:"name,omitempty"`
+			Url  *string `json:"url,omitempty"`
+		} `json:"company,omitempty"`
+		EmpathyCount *int `json:"empathyCount,omitempty"`
+		FunnyCount   *int `json:"funnyCount,omitempty"`
+		Image        *[]struct {
 			Url *string `json:"url,omitempty"`
 		} `json:"image,omitempty"`
 		LikeCount           *int    `json:"likeCount,omitempty"`
@@ -487,6 +493,20 @@ type CommonresponsesRecommendationsReceived struct {
 	Total   *int    `json:"total,omitempty"`
 }
 
+// ResponsesAlumni defines model for responses.Alumni.
+type ResponsesAlumni struct {
+	ExitDate       *ResponsesDate          `json:"exit_date,omitempty"`
+	ExitedPosition *string                 `json:"exited_position,omitempty"`
+	Profile        *ResponsesAlumniProfile `json:"profile,omitempty"`
+}
+
+// ResponsesAlumniProfile defines model for responses.AlumniProfile.
+type ResponsesAlumniProfile struct {
+	FullName *string `json:"full_name,omitempty"`
+	Url      *string `json:"url,omitempty"`
+	Username *string `json:"username,omitempty"`
+}
+
 // ResponsesAnnouncedOn defines model for responses.AnnouncedOn.
 type ResponsesAnnouncedOn struct {
 	Day   *int `json:"day,omitempty"`
@@ -562,16 +582,149 @@ type ResponsesCompanyDetailsResponseV2 struct {
 	Website          *string                     `json:"website,omitempty"`
 }
 
+// ResponsesCompanyHiresCount defines model for responses.CompanyHiresCount.
+type ResponsesCompanyHiresCount struct {
+	AllEmployeeHireCount *int           `json:"all_employee_hire_count,omitempty"`
+	Date                 *ResponsesDate `json:"date,omitempty"`
+	SeniorHireCount      *int           `json:"senior_hire_count,omitempty"`
+}
+
+// ResponsesCompanyInfo defines model for responses.CompanyInfo.
+type ResponsesCompanyInfo struct {
+	Name *string `json:"name,omitempty"`
+	Url  *string `json:"url,omitempty"`
+	Urn  *string `json:"urn,omitempty"`
+}
+
+// ResponsesCompanyInsightsAlumni defines model for responses.CompanyInsightsAlumni.
+type ResponsesCompanyInsightsAlumni struct {
+	Alumni              *[]ResponsesAlumni `json:"alumni,omitempty"`
+	Title               *string            `json:"title,omitempty"`
+	TotalNumberOfAlumni *int               `json:"total_number_of_alumni,omitempty"`
+}
+
+// ResponsesCompanyInsightsHeadcount defines model for responses.CompanyInsightsHeadcount.
+type ResponsesCompanyInsightsHeadcount struct {
+	GrowthPeriods   *[]ResponsesHeadcountGrowthPeriod `json:"growth_periods,omitempty"`
+	HeadcountGrowth *[]ResponsesHeadcountGrowth       `json:"headcount_growth,omitempty"`
+	Title           *string                           `json:"title,omitempty"`
+	TotalEmployees  *int                              `json:"total_employees,omitempty"`
+}
+
+// ResponsesCompanyInsightsHeadcountFunction defines model for responses.CompanyInsightsHeadcountFunction.
+type ResponsesCompanyInsightsHeadcountFunction struct {
+	HeadcountGrowthByFunction *[]ResponsesHeadcountGrowthByFunction `json:"headcount_growth_by_function,omitempty"`
+	LatestHeadcountByFunction *ResponsesLatestHeadcountByFunction   `json:"latest_headcount_by_function,omitempty"`
+	Title                     *string                               `json:"title,omitempty"`
+}
+
+// ResponsesCompanyInsightsHires defines model for responses.CompanyInsightsHires.
+type ResponsesCompanyInsightsHires struct {
+	HireCounts               *[]ResponsesCompanyHiresCount  `json:"hire_counts,omitempty"`
+	SeniorHires              *[]ResponsesCompanySeniorHires `json:"senior_hires,omitempty"`
+	Title                    *string                        `json:"title,omitempty"`
+	TotalHires               *int                           `json:"total_hires,omitempty"`
+	TotalNumberOfSeniorHires *int                           `json:"total_number_of_senior_hires,omitempty"`
+}
+
+// ResponsesCompanyInsightsJobOpenings defines model for responses.CompanyInsightsJobOpenings.
+type ResponsesCompanyInsightsJobOpenings struct {
+	JobOpeningsByFunction                 *[]ResponsesJobOpeningFunction          `json:"job_openings_by_function,omitempty"`
+	JobOpeningsGrowthAllFunctions         *[]ResponsesJobOpeningGrowthFunction    `json:"job_openings_growth_all_functions,omitempty"`
+	JobOpeningsGrowthByFunction           *[]ResponsesJobOpeningsGrowthByFunction `json:"job_openings_growth_by_function,omitempty"`
+	JobsOpeningsGrowthUnselectedFunctions *[]ResponsesJobOpeningGrowthFunction    `json:"jobs_openings_growth_unselected_functions,omitempty"`
+	Title                                 *string                                 `json:"title,omitempty"`
+}
+
+// ResponsesCompanyInsightsV2 defines model for responses.CompanyInsightsV2.
+type ResponsesCompanyInsightsV2 struct {
+	Company  *ResponsesCompanyDetailsResponseV2  `json:"company,omitempty"`
+	Insights *ResponsesCompanyInsightsV2Response `json:"insights,omitempty"`
+}
+
+// ResponsesCompanyInsightsV2Response defines model for responses.CompanyInsightsV2Response.
+type ResponsesCompanyInsightsV2Response struct {
+	Alumni            *ResponsesCompanyInsightsAlumni            `json:"alumni,omitempty"`
+	FunctionHeadcount *ResponsesCompanyInsightsHeadcountFunction `json:"function_headcount,omitempty"`
+	Headcount         *ResponsesCompanyInsightsHeadcount         `json:"headcount,omitempty"`
+	Hires             *ResponsesCompanyInsightsHires             `json:"hires,omitempty"`
+	JobOpenings       *ResponsesCompanyInsightsJobOpenings       `json:"job_openings,omitempty"`
+}
+
 // ResponsesCompanyPicture defines model for responses.CompanyPicture.
 type ResponsesCompanyPicture struct {
 	Cover *string `json:"cover,omitempty"`
 	Logo  *string `json:"logo,omitempty"`
 }
 
+// ResponsesCompanyPost defines model for responses.CompanyPost.
+type ResponsesCompanyPost struct {
+	AppreciationsCount  *int                         `json:"appreciations_count,omitempty"`
+	Article             *ResponsesCompanyPostArticle `json:"article,omitempty"`
+	Author              *ResponsesCompanyPostAuthor  `json:"author,omitempty"`
+	CommentsCount       *int                         `json:"comments_count,omitempty"`
+	Company             *ResponsesCompanyInfo        `json:"company,omitempty"`
+	EmpathyCount        *int                         `json:"empathy_count,omitempty"`
+	FunnyCount          *int                         `json:"funny_count,omitempty"`
+	Images              *[]ResponsesCompanyPostImage `json:"images,omitempty"`
+	InterestCount       *int                         `json:"interest_count,omitempty"`
+	LikesCount          *int                         `json:"likes_count,omitempty"`
+	PostUrl             *string                      `json:"post_url,omitempty"`
+	PostedAt            *string                      `json:"posted_at,omitempty"`
+	PraiseCount         *int                         `json:"praise_count,omitempty"`
+	Reposted            *bool                        `json:"reposted,omitempty"`
+	RepostsCount        *int                         `json:"reposts_count,omitempty"`
+	Text                *string                      `json:"text,omitempty"`
+	TotalReactionsCount *int                         `json:"total_reactions_count,omitempty"`
+	Urn                 *string                      `json:"urn,omitempty"`
+	Videos              *[]ResponsesCompanyPostVideo `json:"videos,omitempty"`
+}
+
+// ResponsesCompanyPostArticle defines model for responses.CompanyPostArticle.
+type ResponsesCompanyPostArticle struct {
+	Link     *string `json:"link,omitempty"`
+	Subtitle *string `json:"subtitle,omitempty"`
+	Title    *string `json:"title,omitempty"`
+}
+
+// ResponsesCompanyPostAuthor defines model for responses.CompanyPostAuthor.
+type ResponsesCompanyPostAuthor struct {
+	FirstName *string `json:"first_name,omitempty"`
+	LastName  *string `json:"last_name,omitempty"`
+	Url       *string `json:"url,omitempty"`
+	Username  *string `json:"username,omitempty"`
+}
+
+// ResponsesCompanyPostImage defines model for responses.CompanyPostImage.
+type ResponsesCompanyPostImage struct {
+	Url *string `json:"url,omitempty"`
+}
+
+// ResponsesCompanyPostVideo defines model for responses.CompanyPostVideo.
+type ResponsesCompanyPostVideo struct {
+	Duration *int    `json:"duration,omitempty"`
+	Poster   *string `json:"poster,omitempty"`
+	Url      *string `json:"url,omitempty"`
+}
+
+// ResponsesCompanySeniorHires defines model for responses.CompanySeniorHires.
+type ResponsesCompanySeniorHires struct {
+	Date          *ResponsesDate         `json:"date,omitempty"`
+	HiredPosition *string                `json:"hired_position,omitempty"`
+	HiredProfile  *ResponsesHiredProfile `json:"hired_profile,omitempty"`
+}
+
 // ResponsesContentLanguage defines model for responses.ContentLanguage.
 type ResponsesContentLanguage struct {
 	Code *string `json:"code,omitempty"`
 	Name *string `json:"name,omitempty"`
+}
+
+// ResponsesDate defines model for responses.Date.
+type ResponsesDate struct {
+	Day   *int `json:"day,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Year  *int `json:"year,omitempty"`
 }
 
 // ResponsesFounded defines model for responses.Founded.
@@ -589,10 +742,49 @@ type ResponsesFunding struct {
 	UpdatedDate *string                    `json:"updated_date,omitempty"`
 }
 
+// ResponsesGetCompanyPostsResultV2 defines model for responses.GetCompanyPostsResultV2.
+type ResponsesGetCompanyPostsResultV2 struct {
+	Count *int                    `json:"count,omitempty"`
+	Posts *[]ResponsesCompanyPost `json:"posts,omitempty"`
+}
+
 // ResponsesGetProfilePostsResultV2 defines model for responses.GetProfilePostsResultV2.
 type ResponsesGetProfilePostsResultV2 struct {
 	PaginationToken *string                 `json:"pagination_token,omitempty"`
 	Posts           *[]ResponsesProfilePost `json:"posts,omitempty"`
+}
+
+// ResponsesGrowthPeriod defines model for responses.GrowthPeriod.
+type ResponsesGrowthPeriod struct {
+	ChangePercentage *int `json:"change_percentage,omitempty"`
+	MonthDifference  *int `json:"month_difference,omitempty"`
+}
+
+// ResponsesHeadcountByFunction defines model for responses.HeadcountByFunction.
+type ResponsesHeadcountByFunction struct {
+	EmployeeCount *int    `json:"employee_count,omitempty"`
+	Name          *string `json:"name,omitempty"`
+	Percentage    *int    `json:"percentage,omitempty"`
+	Urn           *string `json:"urn,omitempty"`
+}
+
+// ResponsesHeadcountGrowth defines model for responses.HeadcountGrowth.
+type ResponsesHeadcountGrowth struct {
+	Date          *ResponsesDate `json:"date,omitempty"`
+	EmployeeCount *int           `json:"employee_count,omitempty"`
+}
+
+// ResponsesHeadcountGrowthByFunction defines model for responses.HeadcountGrowthByFunction.
+type ResponsesHeadcountGrowthByFunction struct {
+	GrowthPeriods *[]ResponsesGrowthPeriod `json:"growth_periods,omitempty"`
+	Name          *string                  `json:"name,omitempty"`
+	Urn           *string                  `json:"urn,omitempty"`
+}
+
+// ResponsesHeadcountGrowthPeriod defines model for responses.HeadcountGrowthPeriod.
+type ResponsesHeadcountGrowthPeriod struct {
+	ChangePercentage *int `json:"change_percentage,omitempty"`
+	MonthDifference  *int `json:"month_difference,omitempty"`
 }
 
 // ResponsesHeadquarter defines model for responses.Headquarter.
@@ -602,6 +794,13 @@ type ResponsesHeadquarter struct {
 	FirstLine      *string `json:"first_line,omitempty"`
 	GeographicArea *string `json:"geographic_area,omitempty"`
 	PostalCode     *string `json:"postal_code,omitempty"`
+}
+
+// ResponsesHiredProfile defines model for responses.HiredProfile.
+type ResponsesHiredProfile struct {
+	FullMame *string `json:"full_mame,omitempty"`
+	Url      *string `json:"url,omitempty"`
+	Username *string `json:"username,omitempty"`
 }
 
 // ResponsesJobApplyMethod defines model for responses.JobApplyMethod.
@@ -712,6 +911,34 @@ type ResponsesJobListResponseV2 struct {
 	Total *int                `json:"total,omitempty"`
 }
 
+// ResponsesJobOpeningCountFunction defines model for responses.JobOpeningCountFunction.
+type ResponsesJobOpeningCountFunction struct {
+	EmployeeCount *int    `json:"employee_count,omitempty"`
+	Name          *string `json:"name,omitempty"`
+	Percentage    *int    `json:"percentage,omitempty"`
+	Urn           *string `json:"urn,omitempty"`
+}
+
+// ResponsesJobOpeningFunction defines model for responses.JobOpeningFunction.
+type ResponsesJobOpeningFunction struct {
+	CountByFunction *[]ResponsesJobOpeningCountFunction `json:"count_by_function,omitempty"`
+	Date            *ResponsesDate                      `json:"date,omitempty"`
+	TotalCount      *int                                `json:"total_count,omitempty"`
+}
+
+// ResponsesJobOpeningGrowthFunction defines model for responses.JobOpeningGrowthFunction.
+type ResponsesJobOpeningGrowthFunction struct {
+	ChangePercentage *int `json:"change_percentage,omitempty"`
+	MonthDifference  *int `json:"month_difference,omitempty"`
+}
+
+// ResponsesJobOpeningsGrowthByFunction defines model for responses.JobOpeningsGrowthByFunction.
+type ResponsesJobOpeningsGrowthByFunction struct {
+	GrowthPeriods *[]ResponsesGrowthPeriod `json:"growth_periods,omitempty"`
+	Name          *string                  `json:"name,omitempty"`
+	Urn           *string                  `json:"urn,omitempty"`
+}
+
 // ResponsesLastFundingRound defines model for responses.LastFundingRound.
 type ResponsesLastFundingRound struct {
 	AnnouncedOn               *ResponsesAnnouncedOn    `json:"announced_on,omitempty"`
@@ -721,6 +948,13 @@ type ResponsesLastFundingRound struct {
 	LeadInvestors             *[]ResponsesLeadInvestor `json:"lead_investors,omitempty"`
 	NumOtherInvestors         *int                     `json:"num_other_investors,omitempty"`
 	Raised                    *ResponsesMoneyRaised    `json:"raised,omitempty"`
+}
+
+// ResponsesLatestHeadcountByFunction defines model for responses.LatestHeadcountByFunction.
+type ResponsesLatestHeadcountByFunction struct {
+	HeadcountByFunction *[]ResponsesHeadcountByFunction `json:"headcount_by_function,omitempty"`
+	TotalCount          *int                            `json:"total_count,omitempty"`
+	YearMonthOn         *ResponsesDate                  `json:"year_month_on,omitempty"`
 }
 
 // ResponsesLeadInvestor defines model for responses.LeadInvestor.
@@ -776,6 +1010,14 @@ type ResponsesPostCommentsV2 struct {
 	PaginationToken *string             `json:"pagination_token,omitempty"`
 	Total           *int                `json:"total,omitempty"`
 	TotalPage       *int                `json:"total_page,omitempty"`
+}
+
+// ResponsesPostReactionsV2 defines model for responses.PostReactionsV2.
+type ResponsesPostReactionsV2 struct {
+	Data       *[]ResponsesReaction `json:"data,omitempty"`
+	Page       *int                 `json:"page,omitempty"`
+	Total      *int                 `json:"total,omitempty"`
+	TotalPages *int                 `json:"total_pages,omitempty"`
 }
 
 // ResponsesProfilPostVideo defines model for responses.ProfilPostVideo.
@@ -842,26 +1084,27 @@ type ResponsesProfilePicture struct {
 
 // ResponsesProfilePost defines model for responses.ProfilePost.
 type ResponsesProfilePost struct {
-	AppreciationsCount  *int                          `json:"appreciations_count,omitempty"`
-	Article             *ResponsesProfilePostArticle  `json:"article,omitempty"`
-	Author              *ResponsesProfilePostAuthor   `json:"author,omitempty"`
-	CommentsCount       *int                          `json:"comments_count,omitempty"`
-	EmpathyCount        *int                          `json:"empathy_count,omitempty"`
-	FunnyCount          *int                          `json:"funny_count,omitempty"`
-	Images              *[]ResponsesProfilePostImage  `json:"images,omitempty"`
-	InterestCount       *int                          `json:"interest_count,omitempty"`
-	LikesCount          *int                          `json:"likes_count,omitempty"`
-	PostUrl             *string                       `json:"post_url,omitempty"`
-	PostedAt            *string                       `json:"posted_at,omitempty"`
-	PostedAtTimestamp   *int                          `json:"posted_at_timestamp,omitempty"`
-	PraiseCount         *int                          `json:"praise_count,omitempty"`
-	Reposted            *bool                         `json:"reposted,omitempty"`
-	RepostsCount        *int                          `json:"reposts_count,omitempty"`
-	ResharedPost        *ResponsesProfilePostReShared `json:"reshared_post,omitempty"`
-	Text                *string                       `json:"text,omitempty"`
-	TotalReactionsCount *int                          `json:"total_reactions_count,omitempty"`
-	Urn                 *string                       `json:"urn,omitempty"`
-	Videos              *[]ResponsesProfilPostVideo   `json:"videos,omitempty"`
+	AppreciationsCount  *int                               `json:"appreciations_count,omitempty"`
+	Article             *ResponsesProfilePostArticle       `json:"article,omitempty"`
+	Author              *ResponsesProfilePostAuthor        `json:"author,omitempty"`
+	AuthorCompany       *ResponsesProfilePostAuthorCompany `json:"author_company,omitempty"`
+	CommentsCount       *int                               `json:"comments_count,omitempty"`
+	EmpathyCount        *int                               `json:"empathy_count,omitempty"`
+	FunnyCount          *int                               `json:"funny_count,omitempty"`
+	Images              *[]ResponsesProfilePostImage       `json:"images,omitempty"`
+	InterestCount       *int                               `json:"interest_count,omitempty"`
+	LikesCount          *int                               `json:"likes_count,omitempty"`
+	PostUrl             *string                            `json:"post_url,omitempty"`
+	PostedAt            *string                            `json:"posted_at,omitempty"`
+	PostedAtTimestamp   *int                               `json:"posted_at_timestamp,omitempty"`
+	PraiseCount         *int                               `json:"praise_count,omitempty"`
+	Reposted            *bool                              `json:"reposted,omitempty"`
+	RepostsCount        *int                               `json:"reposts_count,omitempty"`
+	ResharedPost        *ResponsesProfilePostReShared      `json:"reshared_post,omitempty"`
+	Text                *string                            `json:"text,omitempty"`
+	TotalReactionsCount *int                               `json:"total_reactions_count,omitempty"`
+	Urn                 *string                            `json:"urn,omitempty"`
+	Videos              *[]ResponsesProfilPostVideo        `json:"videos,omitempty"`
 }
 
 // ResponsesProfilePostArticle defines model for responses.ProfilePostArticle.
@@ -878,6 +1121,12 @@ type ResponsesProfilePostAuthor struct {
 	ProfilePictures *[]ResponsesProfilePicture `json:"profile_pictures,omitempty"`
 	Url             *string                    `json:"url,omitempty"`
 	Username        *string                    `json:"username,omitempty"`
+}
+
+// ResponsesProfilePostAuthorCompany defines model for responses.ProfilePostAuthorCompany.
+type ResponsesProfilePostAuthorCompany struct {
+	Name *string `json:"name,omitempty"`
+	Url  *string `json:"url,omitempty"`
 }
 
 // ResponsesProfilePostImage defines model for responses.ProfilePostImage.
@@ -914,6 +1163,17 @@ type ResponsesProfileResponseV2 struct {
 // ResponsesProfileSkill defines model for responses.ProfileSkill.
 type ResponsesProfileSkill struct {
 	Name *string `json:"name,omitempty"`
+}
+
+// ResponsesReaction defines model for responses.Reaction.
+type ResponsesReaction struct {
+	CommentUrn     *string `json:"comment_urn,omitempty"`
+	FullName       *string `json:"full_name,omitempty"`
+	Headline       *string `json:"headline,omitempty"`
+	ProfilePicture *string `json:"profile_picture,omitempty"`
+	ProfileType    *string `json:"profile_type,omitempty"`
+	ProfileUrl     *string `json:"profile_url,omitempty"`
+	ReactionType   *string `json:"reaction_type,omitempty"`
 }
 
 // ResponsesRecommendationGiven defines model for responses.RecommendationGiven.
@@ -975,7 +1235,7 @@ type GetCompanyParams struct {
 
 // GetJobsDetailsParams defines parameters for GetJobsDetails.
 type GetJobsDetailsParams struct {
-	// JobId If of the Job from LinkedIn received in the search results
+	// JobId Id of the Job from LinkedIn received in the search results
 	JobId string `form:"job_id" json:"job_id"`
 }
 
@@ -1028,6 +1288,12 @@ type GetProfileParams struct {
 type GetProfilePostsParams struct {
 	// LiProfileUrl LinkedIn profile URL
 	LiProfileUrl string `form:"li_profile_url" json:"li_profile_url"`
+
+	// PaginationToken Pagination token
+	PaginationToken *string `form:"pagination_token,omitempty" json:"pagination_token,omitempty"`
+
+	// Offset Pagination offset. Must be incremented by 50 on every page
+	Offset *float32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // GetProfileRecommendationsGivenParams defines parameters for GetProfileRecommendationsGiven.
@@ -1075,6 +1341,21 @@ type GetV2CompanyParams struct {
 	LiCompanyUrl string `form:"li_company_url" json:"li_company_url"`
 }
 
+// GetV2CompanyInsightsParams defines parameters for GetV2CompanyInsights.
+type GetV2CompanyInsightsParams struct {
+	// LiCompanyUrl LinkedIn company page URL
+	LiCompanyUrl string `form:"li_company_url" json:"li_company_url"`
+}
+
+// GetV2CompanyPostsParams defines parameters for GetV2CompanyPosts.
+type GetV2CompanyPostsParams struct {
+	// LiCompanyUrl LinkedIn company page URL
+	LiCompanyUrl string `form:"li_company_url" json:"li_company_url"`
+
+	// Offset Offset from which to fetch posts. Default 0
+	Offset string `form:"offset" json:"offset"`
+}
+
 // GetV2JobsDetailsParams defines parameters for GetV2JobsDetails.
 type GetV2JobsDetailsParams struct {
 	// JobId If of the Job from LinkedIn received in the search results
@@ -1104,8 +1385,14 @@ type GetV2JobsSearchParams struct {
 	// Keywords Keywords to search for
 	Keywords *string `form:"keywords,omitempty" json:"keywords,omitempty"`
 
+	// Location Location to search for. Use 'worldwide' or 92000000 for global search
+	Location *string `form:"location,omitempty" json:"location,omitempty"`
+
 	// DatePosted Date posted
 	DatePosted *GetV2JobsSearchParamsDatePosted `form:"date_posted,omitempty" json:"date_posted,omitempty"`
+
+	// Start Start index for the search 0, 50, 100, 150, 200
+	Start *string `form:"start,omitempty" json:"start,omitempty"`
 }
 
 // GetV2JobsSearchParamsSalary defines parameters for GetV2JobsSearch.
@@ -1126,6 +1413,15 @@ type GetV2PostCommentsParams struct {
 	Urn string `form:"urn" json:"urn"`
 }
 
+// GetV2PostReactionsParams defines parameters for GetV2PostReactions.
+type GetV2PostReactionsParams struct {
+	// PostUrl LinkedIn post URL like https://www.linkedin.com/posts/attio_join-the-worlds-leading-startups-and-build-activity-7267725835011272704-FPDI/?utm_source=share&utm_medium=member_desktop
+	PostUrl string `form:"post_url" json:"post_url"`
+
+	// Page Page number
+	Page *string `form:"page,omitempty" json:"page,omitempty"`
+}
+
 // GetV2ProfileParams defines parameters for GetV2Profile.
 type GetV2ProfileParams struct {
 	// LiProfileUrl URL to LinkedIn profile
@@ -1136,6 +1432,12 @@ type GetV2ProfileParams struct {
 type GetV2ProfilePostsParams struct {
 	// LiProfileUrl LinkedIn profile URL
 	LiProfileUrl string `form:"li_profile_url" json:"li_profile_url"`
+
+	// PaginationToken Pagination token
+	PaginationToken *string `form:"pagination_token,omitempty" json:"pagination_token,omitempty"`
+
+	// Offset Pagination offset. Must be incremented by 50 on every page
+	Offset *float32 `form:"offset,omitempty" json:"offset,omitempty"`
 }
 
 // GetV2ProfileRecommendationsGivenParams defines parameters for GetV2ProfileRecommendationsGiven.
@@ -1280,6 +1582,12 @@ type ClientInterface interface {
 	// GetV2Company request
 	GetV2Company(ctx context.Context, params *GetV2CompanyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetV2CompanyInsights request
+	GetV2CompanyInsights(ctx context.Context, params *GetV2CompanyInsightsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetV2CompanyPosts request
+	GetV2CompanyPosts(ctx context.Context, params *GetV2CompanyPostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetV2JobsDetails request
 	GetV2JobsDetails(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1291,6 +1599,9 @@ type ClientInterface interface {
 
 	// GetV2PostComments request
 	GetV2PostComments(ctx context.Context, params *GetV2PostCommentsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetV2PostReactions request
+	GetV2PostReactions(ctx context.Context, params *GetV2PostReactionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetV2Profile request
 	GetV2Profile(ctx context.Context, params *GetV2ProfileParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1428,6 +1739,30 @@ func (c *Client) GetV2Company(ctx context.Context, params *GetV2CompanyParams, r
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetV2CompanyInsights(ctx context.Context, params *GetV2CompanyInsightsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetV2CompanyInsightsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetV2CompanyPosts(ctx context.Context, params *GetV2CompanyPostsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetV2CompanyPostsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) GetV2JobsDetails(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetV2JobsDetailsRequest(c.Server, params)
 	if err != nil {
@@ -1466,6 +1801,18 @@ func (c *Client) GetV2JobsSearch(ctx context.Context, params *GetV2JobsSearchPar
 
 func (c *Client) GetV2PostComments(ctx context.Context, params *GetV2PostCommentsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetV2PostCommentsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetV2PostReactions(ctx context.Context, params *GetV2PostReactionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetV2PostReactionsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1879,6 +2226,38 @@ func NewGetProfilePostsRequest(server string, params *GetProfilePostsParams) (*h
 			}
 		}
 
+		if params.PaginationToken != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pagination_token", runtime.ParamLocationQuery, *params.PaginationToken); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		queryURL.RawQuery = queryValues.Encode()
 	}
 
@@ -2186,6 +2565,108 @@ func NewGetV2CompanyRequest(server string, params *GetV2CompanyParams) (*http.Re
 	return req, nil
 }
 
+// NewGetV2CompanyInsightsRequest generates requests for GetV2CompanyInsights
+func NewGetV2CompanyInsightsRequest(server string, params *GetV2CompanyInsightsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v2/company/insights")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "li_company_url", runtime.ParamLocationQuery, params.LiCompanyUrl); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetV2CompanyPostsRequest generates requests for GetV2CompanyPosts
+func NewGetV2CompanyPostsRequest(server string, params *GetV2CompanyPostsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v2/company/posts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "li_company_url", runtime.ParamLocationQuery, params.LiCompanyUrl); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, params.Offset); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetV2JobsDetailsRequest generates requests for GetV2JobsDetails
 func NewGetV2JobsDetailsRequest(server string, params *GetV2JobsDetailsParams) (*http.Request, error) {
 	var err error
@@ -2382,9 +2863,41 @@ func NewGetV2JobsSearchRequest(server string, params *GetV2JobsSearchParams) (*h
 
 		}
 
+		if params.Location != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "location", runtime.ParamLocationQuery, *params.Location); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
 		if params.DatePosted != nil {
 
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "date_posted", runtime.ParamLocationQuery, *params.DatePosted); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Start != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "start", runtime.ParamLocationQuery, *params.Start); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -2441,6 +2954,67 @@ func NewGetV2PostCommentsRequest(server string, params *GetV2PostCommentsParams)
 					queryValues.Add(k, v2)
 				}
 			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetV2PostReactionsRequest generates requests for GetV2PostReactions
+func NewGetV2PostReactionsRequest(server string, params *GetV2PostReactionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v2/post/reactions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "post_url", runtime.ParamLocationQuery, params.PostUrl); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "page", runtime.ParamLocationQuery, *params.Page); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -2531,6 +3105,38 @@ func NewGetV2ProfilePostsRequest(server string, params *GetV2ProfilePostsParams)
 					queryValues.Add(k, v2)
 				}
 			}
+		}
+
+		if params.PaginationToken != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pagination_token", runtime.ParamLocationQuery, *params.PaginationToken); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Offset != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -2868,6 +3474,12 @@ type ClientWithResponsesInterface interface {
 	// GetV2CompanyWithResponse request
 	GetV2CompanyWithResponse(ctx context.Context, params *GetV2CompanyParams, reqEditors ...RequestEditorFn) (*GetV2CompanyResponse, error)
 
+	// GetV2CompanyInsightsWithResponse request
+	GetV2CompanyInsightsWithResponse(ctx context.Context, params *GetV2CompanyInsightsParams, reqEditors ...RequestEditorFn) (*GetV2CompanyInsightsResponse, error)
+
+	// GetV2CompanyPostsWithResponse request
+	GetV2CompanyPostsWithResponse(ctx context.Context, params *GetV2CompanyPostsParams, reqEditors ...RequestEditorFn) (*GetV2CompanyPostsResponse, error)
+
 	// GetV2JobsDetailsWithResponse request
 	GetV2JobsDetailsWithResponse(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*GetV2JobsDetailsResponse, error)
 
@@ -2879,6 +3491,9 @@ type ClientWithResponsesInterface interface {
 
 	// GetV2PostCommentsWithResponse request
 	GetV2PostCommentsWithResponse(ctx context.Context, params *GetV2PostCommentsParams, reqEditors ...RequestEditorFn) (*GetV2PostCommentsResponse, error)
+
+	// GetV2PostReactionsWithResponse request
+	GetV2PostReactionsWithResponse(ctx context.Context, params *GetV2PostReactionsParams, reqEditors ...RequestEditorFn) (*GetV2PostReactionsResponse, error)
 
 	// GetV2ProfileWithResponse request
 	GetV2ProfileWithResponse(ctx context.Context, params *GetV2ProfileParams, reqEditors ...RequestEditorFn) (*GetV2ProfileResponse, error)
@@ -3106,6 +3721,48 @@ func (r GetV2CompanyResponse) StatusCode() int {
 	return 0
 }
 
+type GetV2CompanyInsightsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r GetV2CompanyInsightsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetV2CompanyInsightsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetV2CompanyPostsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r GetV2CompanyPostsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetV2CompanyPostsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type GetV2JobsDetailsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -3184,6 +3841,27 @@ func (r GetV2PostCommentsResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r GetV2PostCommentsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetV2PostReactionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r GetV2PostReactionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetV2PostReactionsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -3385,6 +4063,24 @@ func (c *ClientWithResponses) GetV2CompanyWithResponse(ctx context.Context, para
 	return ParseGetV2CompanyResponse(rsp)
 }
 
+// GetV2CompanyInsightsWithResponse request returning *GetV2CompanyInsightsResponse
+func (c *ClientWithResponses) GetV2CompanyInsightsWithResponse(ctx context.Context, params *GetV2CompanyInsightsParams, reqEditors ...RequestEditorFn) (*GetV2CompanyInsightsResponse, error) {
+	rsp, err := c.GetV2CompanyInsights(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetV2CompanyInsightsResponse(rsp)
+}
+
+// GetV2CompanyPostsWithResponse request returning *GetV2CompanyPostsResponse
+func (c *ClientWithResponses) GetV2CompanyPostsWithResponse(ctx context.Context, params *GetV2CompanyPostsParams, reqEditors ...RequestEditorFn) (*GetV2CompanyPostsResponse, error) {
+	rsp, err := c.GetV2CompanyPosts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetV2CompanyPostsResponse(rsp)
+}
+
 // GetV2JobsDetailsWithResponse request returning *GetV2JobsDetailsResponse
 func (c *ClientWithResponses) GetV2JobsDetailsWithResponse(ctx context.Context, params *GetV2JobsDetailsParams, reqEditors ...RequestEditorFn) (*GetV2JobsDetailsResponse, error) {
 	rsp, err := c.GetV2JobsDetails(ctx, params, reqEditors...)
@@ -3419,6 +4115,15 @@ func (c *ClientWithResponses) GetV2PostCommentsWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseGetV2PostCommentsResponse(rsp)
+}
+
+// GetV2PostReactionsWithResponse request returning *GetV2PostReactionsResponse
+func (c *ClientWithResponses) GetV2PostReactionsWithResponse(ctx context.Context, params *GetV2PostReactionsParams, reqEditors ...RequestEditorFn) (*GetV2PostReactionsResponse, error) {
+	rsp, err := c.GetV2PostReactions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetV2PostReactionsResponse(rsp)
 }
 
 // GetV2ProfileWithResponse request returning *GetV2ProfileResponse
@@ -3626,6 +4331,38 @@ func ParseGetV2CompanyResponse(rsp *http.Response) (*GetV2CompanyResponse, error
 	return response, nil
 }
 
+// ParseGetV2CompanyInsightsResponse parses an HTTP response from a GetV2CompanyInsightsWithResponse call
+func ParseGetV2CompanyInsightsResponse(rsp *http.Response) (*GetV2CompanyInsightsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetV2CompanyInsightsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
+// ParseGetV2CompanyPostsResponse parses an HTTP response from a GetV2CompanyPostsWithResponse call
+func ParseGetV2CompanyPostsResponse(rsp *http.Response) (*GetV2CompanyPostsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetV2CompanyPostsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
 // ParseGetV2JobsDetailsResponse parses an HTTP response from a GetV2JobsDetailsWithResponse call
 func ParseGetV2JobsDetailsResponse(rsp *http.Response) (*GetV2JobsDetailsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -3683,6 +4420,22 @@ func ParseGetV2PostCommentsResponse(rsp *http.Response) (*GetV2PostCommentsRespo
 	}
 
 	response := &GetV2PostCommentsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
+// ParseGetV2PostReactionsResponse parses an HTTP response from a GetV2PostReactionsWithResponse call
+func ParseGetV2PostReactionsResponse(rsp *http.Response) (*GetV2PostReactionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetV2PostReactionsResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

@@ -39,7 +39,7 @@ paths:
       parameters:
         - name: job_id
           in: query
-          description: If of the Job from LinkedIn received in the search results
+          description: Id of the Job from LinkedIn received in the search results
           required: true
           schema:
             type: string
@@ -166,7 +166,10 @@ paths:
     get:
       tags:
         - post_deprecated
-      description: GetProfilePosts - Returns a list of posts for LinkedIn Profile
+      description:
+        GetProfilePosts - Returns a list of posts for LinkedIn Profile.
+        In order to use pagination you must pass pagination_token from the previous
+        response and increment offset by 50 each time you want to fetch next page
       parameters:
         - name: li_profile_url
           in: query
@@ -174,6 +177,16 @@ paths:
           required: true
           schema:
             type: string
+        - name: pagination_token
+          in: query
+          description: Pagination token
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Pagination offset. Must be incremented by 50 on every page
+          schema:
+            type: number
       responses:
         "200":
           description: OK
@@ -305,6 +318,58 @@ paths:
                 $ref: "#/components/schemas/responses.CompanyDetailsResponseV2"
       security:
         - ApiKeyAuth: []
+  /v2/company/insights:
+    get:
+      tags:
+        - company
+      description:
+        "GetCompanyInsights - Returns details insights about the company\
+        \ including headcount growth over time, job openings, and more"
+      parameters:
+        - name: li_company_url
+          in: query
+          description: LinkedIn company page URL
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.CompanyInsightsV2"
+      security:
+        - ApiKeyAuth: []
+  /v2/company/posts:
+    get:
+      tags:
+        - company
+      description:
+        GetCompanyPosts - Returns a list of posts from the company's LinkedIn
+        page
+      parameters:
+        - name: li_company_url
+          in: query
+          description: LinkedIn company page URL
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Offset from which to fetch posts. Default 0
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.GetCompanyPostsResultV2"
+      security:
+        - ApiKeyAuth: []
   /v2/jobs/details:
     get:
       tags:
@@ -395,6 +460,13 @@ paths:
           description: Keywords to search for
           schema:
             type: string
+        - name: location
+          in: query
+          description:
+            Location to search for. Use 'worldwide' or 92000000 for global
+            search
+          schema:
+            type: string
         - name: date_posted
           in: query
           description: Date posted
@@ -405,6 +477,11 @@ paths:
               - pastMonth
               - pastWeek
               - past24Hours
+        - name: start
+          in: query
+          description: "Start index for the search 0, 50, 100, 150, 200"
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -435,6 +512,32 @@ paths:
                 $ref: "#/components/schemas/responses.PostCommentsV2"
       security:
         - ApiKeyAuth: []
+  /v2/post/reactions:
+    get:
+      tags:
+        - post
+      description: GetPostReactions - Returns a list of reactions for LinkedIn Post
+      parameters:
+        - name: post_url
+          in: query
+          description: LinkedIn post URL like https://www.linkedin.com/posts/attio_join-the-worlds-leading-startups-and-build-activity-7267725835011272704-FPDI/?utm_source=share&utm_medium=member_desktop
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/responses.PostReactionsV2"
+      security:
+        - ApiKeyAuth: []
   /v2/profile:
     get:
       tags:
@@ -460,7 +563,10 @@ paths:
     get:
       tags:
         - post
-      description: GetProfilePosts - Returns a list of posts for LinkedIn Profile
+      description:
+        GetProfilePosts - Returns a list of posts for LinkedIn Profile.
+        In order to use pagination you must pass pagination_token from the previous
+        response and increment offset by 50 each time you want to fetch next page
       parameters:
         - name: li_profile_url
           in: query
@@ -468,6 +574,16 @@ paths:
           required: true
           schema:
             type: string
+        - name: pagination_token
+          in: query
+          description: Pagination token
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Pagination offset. Must be incremented by 50 on every page
+          schema:
+            type: number
       responses:
         "200":
           description: OK
@@ -584,173 +700,175 @@ components:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            Images:
-              type: object
-              properties:
-                cover:
-                  type: string
-                logo:
-                  type: string
-            backgroundCoverImages:
-              type: array
-              items:
-                type: object
-                properties:
-                  height:
-                    type: integer
-                  url:
-                    type: string
-                  width:
-                    type: integer
-            callToAction:
-              type: object
-              properties:
-                callToActionMessage:
-                  type: object
-                  properties:
-                    text:
-                      type: string
-                    textDirection:
-                      type: string
-                callToActionType:
-                  type: string
-                url:
-                  type: string
-                visible:
-                  type: boolean
-            crunchbaseUrl:
-              type: string
-            description:
-              type: string
-            followerCount:
-              type: integer
-            founded:
-              type: object
-              properties:
-                day:
-                  type: integer
-                month:
-                  type: integer
-                year:
-                  type: integer
-            fundingData:
-              type: object
-              properties:
-                lastFundingRound:
-                  type: object
-                  properties:
-                    announcedOn:
-                      type: object
-                      properties:
-                        day:
-                          type: integer
-                        month:
-                          type: integer
-                        year:
-                          type: integer
-                    fundingRoundCrunchbaseUrl:
-                      type: string
-                    fundingType:
-                      type: string
-                    investorsCrunchbaseUrl:
-                      type: string
-                    leadInvestors:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          investorCrunchbaseUrl:
-                            type: string
-                          name:
-                            type: string
-                    moneyRaised:
-                      type: object
-                      properties:
-                        amount:
-                          type: string
-                        currencyCode:
-                          type: string
-                    numOtherInvestors:
-                      type: integer
-                numFundingRounds:
-                  type: integer
-                updatedAt:
-                  type: string
-                updatedDate:
-                  type: string
-            headquarter:
-              type: object
-              properties:
-                city:
-                  type: string
-                country:
-                  type: string
-                geographicArea:
-                  type: string
-                line1:
-                  type: string
-                postalCode:
-                  type: string
-            id:
-              type: string
-            industries:
-              type: array
-              items:
-                type: string
-            locations:
-              type: array
-              items:
-                type: object
-                properties:
-                  city:
-                    type: string
-                  country:
-                    type: string
-                  geographicArea:
-                    type: string
-                  headquarter:
-                    type: boolean
-                  line1:
-                    type: string
-                  postalCode:
-                    type: string
-            logos:
-              type: array
-              items:
-                type: object
-                properties:
-                  height:
-                    type: integer
-                  url:
-                    type: string
-                  width:
-                    type: integer
-            name:
-              type: string
-            phone:
-              type: string
-            specialities:
-              type: array
-              items:
-                type: string
-            staffCount:
-              type: integer
-            staffCountRange:
-              type: string
-            tagline:
-              type: string
-            type:
-              type: string
-            universalName:
-              type: string
-            website:
-              type: string
+          $ref: "#/components/schemas/commonresponses.CompanyDetailsData"
         message:
           type: string
         success:
           type: boolean
+    commonresponses.CompanyDetailsData:
+      type: object
+      properties:
+        Images:
+          type: object
+          properties:
+            cover:
+              type: string
+            logo:
+              type: string
+        backgroundCoverImages:
+          type: array
+          items:
+            type: object
+            properties:
+              height:
+                type: integer
+              url:
+                type: string
+              width:
+                type: integer
+        callToAction:
+          type: object
+          properties:
+            callToActionMessage:
+              type: object
+              properties:
+                text:
+                  type: string
+                textDirection:
+                  type: string
+            callToActionType:
+              type: string
+            url:
+              type: string
+            visible:
+              type: boolean
+        crunchbaseUrl:
+          type: string
+        description:
+          type: string
+        followerCount:
+          type: integer
+        founded:
+          type: object
+          properties:
+            day:
+              type: integer
+            month:
+              type: integer
+            year:
+              type: integer
+        fundingData:
+          type: object
+          properties:
+            lastFundingRound:
+              type: object
+              properties:
+                announcedOn:
+                  type: object
+                  properties:
+                    day:
+                      type: integer
+                    month:
+                      type: integer
+                    year:
+                      type: integer
+                fundingRoundCrunchbaseUrl:
+                  type: string
+                fundingType:
+                  type: string
+                investorsCrunchbaseUrl:
+                  type: string
+                leadInvestors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      investorCrunchbaseUrl:
+                        type: string
+                      name:
+                        type: string
+                moneyRaised:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                    currencyCode:
+                      type: string
+                numOtherInvestors:
+                  type: integer
+            numFundingRounds:
+              type: integer
+            updatedAt:
+              type: string
+            updatedDate:
+              type: string
+        headquarter:
+          type: object
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            geographicArea:
+              type: string
+            line1:
+              type: string
+            postalCode:
+              type: string
+        id:
+          type: string
+        industries:
+          type: array
+          items:
+            type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              city:
+                type: string
+              country:
+                type: string
+              geographicArea:
+                type: string
+              headquarter:
+                type: boolean
+              line1:
+                type: string
+              postalCode:
+                type: string
+        logos:
+          type: array
+          items:
+            type: object
+            properties:
+              height:
+                type: integer
+              url:
+                type: string
+              width:
+                type: integer
+        name:
+          type: string
+        phone:
+          type: string
+        specialities:
+          type: array
+          items:
+            type: string
+        staffCount:
+          type: integer
+        staffCountRange:
+          type: string
+        tagline:
+          type: string
+        type:
+          type: string
+        universalName:
+          type: string
+        website:
+          type: string
     commonresponses.ContentLanguage:
       type: object
       properties:
@@ -805,7 +923,11 @@ components:
                 type: integer
               company:
                 type: object
-                properties: {}
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
               empathyCount:
                 type: integer
               funnyCount:
@@ -1321,6 +1443,24 @@ components:
           type: boolean
         total:
           type: integer
+    responses.Alumni:
+      type: object
+      properties:
+        exit_date:
+          $ref: "#/components/schemas/responses.Date"
+        exited_position:
+          type: string
+        profile:
+          $ref: "#/components/schemas/responses.AlumniProfile"
+    responses.AlumniProfile:
+      type: object
+      properties:
+        full_name:
+          type: string
+        url:
+          type: string
+        username:
+          type: string
     responses.AnnouncedOn:
       type: object
       properties:
@@ -1446,6 +1586,119 @@ components:
           type: string
         website:
           type: string
+    responses.CompanyHiresCount:
+      type: object
+      properties:
+        all_employee_hire_count:
+          type: integer
+        date:
+          $ref: "#/components/schemas/responses.Date"
+        senior_hire_count:
+          type: integer
+    responses.CompanyInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        urn:
+          type: string
+    responses.CompanyInsightsAlumni:
+      type: object
+      properties:
+        alumni:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.Alumni"
+        title:
+          type: string
+        total_number_of_alumni:
+          type: integer
+    responses.CompanyInsightsHeadcount:
+      type: object
+      properties:
+        growth_periods:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.HeadcountGrowthPeriod"
+        headcount_growth:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.HeadcountGrowth"
+        title:
+          type: string
+        total_employees:
+          type: integer
+    responses.CompanyInsightsHeadcountFunction:
+      type: object
+      properties:
+        headcount_growth_by_function:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.HeadcountGrowthByFunction"
+        latest_headcount_by_function:
+          $ref: "#/components/schemas/responses.LatestHeadcountByFunction"
+        title:
+          type: string
+    responses.CompanyInsightsHires:
+      type: object
+      properties:
+        hire_counts:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.CompanyHiresCount"
+        senior_hires:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.CompanySeniorHires"
+        title:
+          type: string
+        total_hires:
+          type: integer
+        total_number_of_senior_hires:
+          type: integer
+    responses.CompanyInsightsJobOpenings:
+      type: object
+      properties:
+        job_openings_by_function:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobOpeningFunction"
+        job_openings_growth_all_functions:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobOpeningGrowthFunction"
+        job_openings_growth_by_function:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobOpeningsGrowthByFunction"
+        jobs_openings_growth_unselected_functions:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobOpeningGrowthFunction"
+        title:
+          type: string
+    responses.CompanyInsightsV2:
+      type: object
+      properties:
+        company:
+          $ref: "#/components/schemas/responses.CompanyDetailsResponseV2"
+        insights:
+          $ref: "#/components/schemas/responses.CompanyInsightsV2Response"
+    responses.CompanyInsightsV2Response:
+      type: object
+      properties:
+        alumni:
+          $ref: "#/components/schemas/responses.CompanyInsightsAlumni"
+        function_headcount:
+          $ref: "#/components/schemas/responses.CompanyInsightsHeadcountFunction"
+        headcount:
+          $ref: "#/components/schemas/responses.CompanyInsightsHeadcount"
+        hires:
+          $ref: "#/components/schemas/responses.CompanyInsightsHires"
+        job_openings:
+          $ref: "#/components/schemas/responses.CompanyInsightsJobOpenings"
     responses.CompanyPicture:
       type: object
       properties:
@@ -1453,6 +1706,94 @@ components:
           type: string
         logo:
           type: string
+    responses.CompanyPost:
+      type: object
+      properties:
+        appreciations_count:
+          type: integer
+        article:
+          $ref: "#/components/schemas/responses.CompanyPostArticle"
+        author:
+          $ref: "#/components/schemas/responses.CompanyPostAuthor"
+        comments_count:
+          type: integer
+        company:
+          $ref: "#/components/schemas/responses.CompanyInfo"
+        empathy_count:
+          type: integer
+        funny_count:
+          type: integer
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.CompanyPostImage"
+        interest_count:
+          type: integer
+        likes_count:
+          type: integer
+        post_url:
+          type: string
+        posted_at:
+          type: string
+        praise_count:
+          type: integer
+        reposted:
+          type: boolean
+        reposts_count:
+          type: integer
+        text:
+          type: string
+        total_reactions_count:
+          type: integer
+        urn:
+          type: string
+        videos:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.CompanyPostVideo"
+    responses.CompanyPostArticle:
+      type: object
+      properties:
+        link:
+          type: string
+        subtitle:
+          type: string
+        title:
+          type: string
+    responses.CompanyPostAuthor:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        url:
+          type: string
+        username:
+          type: string
+    responses.CompanyPostImage:
+      type: object
+      properties:
+        url:
+          type: string
+    responses.CompanyPostVideo:
+      type: object
+      properties:
+        duration:
+          type: integer
+        poster:
+          type: string
+        url:
+          type: string
+    responses.CompanySeniorHires:
+      type: object
+      properties:
+        date:
+          $ref: "#/components/schemas/responses.Date"
+        hired_position:
+          type: string
+        hired_profile:
+          $ref: "#/components/schemas/responses.HiredProfile"
     responses.ContentLanguage:
       type: object
       properties:
@@ -1460,6 +1801,15 @@ components:
           type: string
         name:
           type: string
+    responses.Date:
+      type: object
+      properties:
+        day:
+          type: integer
+        month:
+          type: integer
+        year:
+          type: integer
     responses.Founded:
       type: object
       properties:
@@ -1480,6 +1830,15 @@ components:
           type: string
         updated_date:
           type: string
+    responses.GetCompanyPostsResultV2:
+      type: object
+      properties:
+        count:
+          type: integer
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.CompanyPost"
     responses.GetProfilePostsResultV2:
       type: object
       properties:
@@ -1489,6 +1848,49 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/responses.ProfilePost"
+    responses.GrowthPeriod:
+      type: object
+      properties:
+        change_percentage:
+          type: integer
+        month_difference:
+          type: integer
+    responses.HeadcountByFunction:
+      type: object
+      properties:
+        employee_count:
+          type: integer
+        name:
+          type: string
+        percentage:
+          type: integer
+        urn:
+          type: string
+    responses.HeadcountGrowth:
+      type: object
+      properties:
+        date:
+          $ref: "#/components/schemas/responses.Date"
+        employee_count:
+          type: integer
+    responses.HeadcountGrowthByFunction:
+      type: object
+      properties:
+        growth_periods:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.GrowthPeriod"
+        name:
+          type: string
+        urn:
+          type: string
+    responses.HeadcountGrowthPeriod:
+      type: object
+      properties:
+        change_percentage:
+          type: integer
+        month_difference:
+          type: integer
     responses.Headquarter:
       type: object
       properties:
@@ -1501,6 +1903,15 @@ components:
         geographic_area:
           type: string
         postal_code:
+          type: string
+    responses.HiredProfile:
+      type: object
+      properties:
+        full_mame:
+          type: string
+        url:
+          type: string
+        username:
           type: string
     responses.JobApplyMethod:
       type: object
@@ -1686,6 +2097,46 @@ components:
             $ref: "#/components/schemas/responses.JobItem"
         total:
           type: integer
+    responses.JobOpeningCountFunction:
+      type: object
+      properties:
+        employee_count:
+          type: integer
+        name:
+          type: string
+        percentage:
+          type: integer
+        urn:
+          type: string
+    responses.JobOpeningFunction:
+      type: object
+      properties:
+        count_by_function:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.JobOpeningCountFunction"
+        date:
+          $ref: "#/components/schemas/responses.Date"
+        total_count:
+          type: integer
+    responses.JobOpeningGrowthFunction:
+      type: object
+      properties:
+        change_percentage:
+          type: integer
+        month_difference:
+          type: integer
+    responses.JobOpeningsGrowthByFunction:
+      type: object
+      properties:
+        growth_periods:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.GrowthPeriod"
+        name:
+          type: string
+        urn:
+          type: string
     responses.LastFundingRound:
       type: object
       properties:
@@ -1705,6 +2156,17 @@ components:
           type: integer
         raised:
           $ref: "#/components/schemas/responses.MoneyRaised"
+    responses.LatestHeadcountByFunction:
+      type: object
+      properties:
+        headcount_by_function:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.HeadcountByFunction"
+        total_count:
+          type: integer
+        year_month_on:
+          $ref: "#/components/schemas/responses.Date"
     responses.LeadInvestor:
       type: object
       properties:
@@ -1783,6 +2245,19 @@ components:
         total:
           type: integer
         total_page:
+          type: integer
+    responses.PostReactionsV2:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/responses.Reaction"
+        page:
+          type: integer
+        total:
+          type: integer
+        total_pages:
           type: integer
     responses.ProfilPostVideo:
       type: object
@@ -1877,6 +2352,8 @@ components:
           $ref: "#/components/schemas/responses.ProfilePostArticle"
         author:
           $ref: "#/components/schemas/responses.ProfilePostAuthor"
+        author_company:
+          $ref: "#/components/schemas/responses.ProfilePostAuthorCompany"
         comments_count:
           type: integer
         empathy_count:
@@ -1938,6 +2415,13 @@ components:
         url:
           type: string
         username:
+          type: string
+    responses.ProfilePostAuthorCompany:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
           type: string
     responses.ProfilePostImage:
       type: object
@@ -2002,6 +2486,23 @@ components:
       type: object
       properties:
         name:
+          type: string
+    responses.Reaction:
+      type: object
+      properties:
+        comment_urn:
+          type: string
+        full_name:
+          type: string
+        headline:
+          type: string
+        profile_picture:
+          type: string
+        profile_type:
+          type: string
+        profile_url:
+          type: string
+        reaction_type:
           type: string
     responses.RecommendationGiven:
       type: object
